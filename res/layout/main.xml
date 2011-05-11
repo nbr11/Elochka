@@ -5,9 +5,19 @@
 	<TextView android:id="@+id/textView1" android:layout_height="wrap_content"
 		android:text="Elochka" android:layout_width="match_parent"
 		android:layout_gravity="center" />
-	<com.dnima.elochka.elka android:src="@drawable/elka"
-		android:id="@+id/elka" android:layout_height="wrap_content"
-		android:layout_width="wrap_content" android:layout_gravity="center" android:background="@drawable/elka"/>
+	
 
+	<ViewSwitcher android:layout_height="wrap_content"
+		android:id="@+id/vs" android:layout_width="wrap_content" >
+	<com.dnima.elochka.ElkaView android:src="@drawable/elka"
+		android:id="@+id/elka" android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:layout_gravity="center"
+		android:background="@drawable/elka" />
+
+
+	<com.dnima.elochka.PhotoView android:id="@+id/photo"
+		android:layout_height="wrap_content" android:background="@drawable/icon"
+		android:layout_width="wrap_content" android:layout_gravity="center" />
+	</ViewSwitcher>
 
 </LinearLayout>

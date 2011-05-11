@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dnima.elochka.ElkaView xmlns:android="http://schemas.android.com/apk/res/android"
+ android:src="@drawable/elka"
+	android:id="@+id/elka" android:layout_height="wrap_content"
+	android:layout_width="wrap_content" android:layout_gravity="center"
+	android:background="@drawable/elka" />
