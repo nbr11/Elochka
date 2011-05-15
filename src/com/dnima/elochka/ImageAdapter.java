@@ -58,7 +58,7 @@ public class ImageAdapter implements SpinnerAdapter {
 
 	        i.setImageResource(mImageIds[position]);
 	        i.setLayoutParams(new Gallery.LayoutParams(150, 100));
-	        i.setScaleType(ImageView.ScaleType.FIT_XY);
+	        i.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 	        i.setBackgroundResource(mGalleryItemBackground);
 
 	        return i;

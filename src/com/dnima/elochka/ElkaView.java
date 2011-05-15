@@ -24,6 +24,10 @@ public class ElkaView extends View implements Callback {
 	/* (non-Javadoc)
 	 * @see android.view.KeyEvent.Callback#onKeyDown(int, android.view.KeyEvent)
 	 */
+	// with decoration on cursor
+	private static final int MODE_DRAG=1;
+	// without decoration on cursor
+	private static final int MODE_FREE=0;
 	
 	private Canvas c;
 	private Paint p;
@@ -31,7 +35,7 @@ public class ElkaView extends View implements Callback {
 	private MotionEvent eventTouch=null;
 
 	public BitmapDrawable face;
-	private Object eventSelected;
+	private String eventSelected;
 	
 	public ElkaView(Context context, AttributeSet as) {
 		
@@ -58,14 +62,15 @@ public class ElkaView extends View implements Callback {
 		if (eventTouch !=null) {
 //		 c.drawText("Hush Puppies",  eventTouch.getX(),eventTouch.getY(), p);
      	 c.drawBitmap(face.getBitmap(), eventTouch.getX(),eventTouch.getY(), p); 
-    		if (eventSelected != null) {
- 			 c.drawText("Selected:"+eventSelected, eventTouch.getX(), eventTouch.getY(), p);
- 			 eventSelected=null;
- 			}
-
+    	
      	 eventTouch=null;
 		}
-		
+		if (eventSelected != null) {
+			 c.drawText("Selected:"+eventSelected, 20, 20, p);
+			 face=
+//			 eventSelected=null;
+		}
+
 	}
 	public boolean onTouchEvent(MotionEvent event) {
 		
@@ -78,10 +83,9 @@ public class ElkaView extends View implements Callback {
 	}
 	public boolean onKeyDown(int arg0, KeyEvent arg1) {
 		// TODO Auto-generated method stub
-		  ((Collage) mycontext).startActivity2();
 		 
 		
-		return true;
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -111,6 +115,7 @@ public class ElkaView extends View implements Callback {
 	public void drawDigi(String stringExtra) {
 		// TODO Auto-generated method stub
 		
+		eventSelected=stringExtra;
 	}
 
 }

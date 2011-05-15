@@ -34,7 +34,7 @@ public class ChooseAction extends Activity {
              public void onClick(View v) {
                  // Perform action on click
             	 Bundle conData = new Bundle();
-            	   conData.putString("param_return", "text returned to MainActivity"+v.toString());
+            	   conData.putString("param_return", "decor # "+g.getSelectedItemId());
             	   Intent intent = new Intent();
             	   intent.putExtras(conData);
             	   setResult(RESULT_OK, intent);

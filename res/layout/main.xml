@@ -2,22 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-	<TextView android:id="@+id/textView1" android:layout_height="wrap_content"
+ 	<TextView android:id="@+id/textView1" android:layout_height="wrap_content"
 		android:text="Elochka" android:layout_width="match_parent"
 		android:layout_gravity="center" />
-	
 
-	<ViewSwitcher android:layout_height="wrap_content"
-		android:id="@+id/vs" android:layout_width="wrap_content" >
 	<com.dnima.elochka.ElkaView android:src="@drawable/elka"
-		android:id="@+id/elka" android:layout_height="wrap_content"
-		android:layout_width="wrap_content" android:layout_gravity="center"
+		android:id="@+id/elka" android:layout_height="match_parent"
+		android:layout_width="match_parent" android:layout_gravity="center"
 		android:background="@drawable/elka" />
-
-
-	<com.dnima.elochka.PhotoView android:id="@+id/photo"
-		android:layout_height="wrap_content" android:background="@drawable/icon"
-		android:layout_width="wrap_content" android:layout_gravity="center" />
-	</ViewSwitcher>
-
+   <Button android:text="Select decoration" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/button2"></Button>
+    
 </LinearLayout>
