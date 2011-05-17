@@ -3,8 +3,13 @@
  */
 package com.dnima.elochka;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Vector;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources.NotFoundException;
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -20,7 +25,6 @@ import android.view.KeyEvent.Callback;
  */
 public class ElkaView extends View implements Callback {
 
-	private static final int REQUEST_IMAGE = 1;
 	/* (non-Javadoc)
 	 * @see android.view.KeyEvent.Callback#onKeyDown(int, android.view.KeyEvent)
 	 */
@@ -35,6 +39,7 @@ public class ElkaView extends View implements Callback {
 	private MotionEvent eventTouch=null;
 
 	public BitmapDrawable face;
+	public ArrayList<BitmapDrawable> faces=new ArrayList<BitmapDrawable>();
 	private String eventSelected;
 	
 	public ElkaView(Context context, AttributeSet as) {
@@ -43,6 +48,31 @@ public class ElkaView extends View implements Callback {
 		setFocusableInTouchMode(true);
 		mycontext=context;
 		face=(BitmapDrawable)context.getResources().getDrawable(R.drawable.icon);
+        for (Field el : R.drawable.class.getFields()) {
+        	if (el.getName().contains("sample")) {
+        		Integer id=0;
+				try {
+					id = (Integer)el.get(el);
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	
+            	try {
+					faces.add((BitmapDrawable)context.getResources().getDrawable(id));
+				} catch (NotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	
+        	}
+        }
+        
+        
+    
 		p=new Paint();
 	}
 	public ElkaView(Context context, AttributeSet as,int defaultStyle) {
@@ -50,7 +80,26 @@ public class ElkaView extends View implements Callback {
 		setFocusableInTouchMode(true);
 		mycontext=context;
 		face=(BitmapDrawable)context.getResources().getDrawable(R.drawable.icon);
+	    for (Field el : R.drawable.class.getFields()) {
+        	if (el.getName().contains("sample")) {
+        		Integer id=0;
+				try {
+					id = (Integer)el.get(el);
+					
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	BitmapDrawable img=
+            		((BitmapDrawable)context.getResources().getDrawable(id));
+            	faces.add(img);
+        	}
+        }
 		p=new Paint();
+		
 	}
 	
 	public void onDraw (Canvas elkaCanvas) {
@@ -62,20 +111,20 @@ public class ElkaView extends View implements Callback {
 		if (eventTouch !=null) {
 //		 c.drawText("Hush Puppies",  eventTouch.getX(),eventTouch.getY(), p);
      	 c.drawBitmap(face.getBitmap(), eventTouch.getX(),eventTouch.getY(), p); 
-    	
+    	 
      	 eventTouch=null;
 		}
 		if (eventSelected != null) {
 			 c.drawText("Selected:"+eventSelected, 20, 20, p);
-			 face=
-//			 eventSelected=null;
+			 face=faces.get(Integer.parseInt(eventSelected));
+		     eventSelected=null;		   
 		}
 
 	}
 	public boolean onTouchEvent(MotionEvent event) {
 		
         eventTouch=event;
-      
+        invalidate();
       
         
         
