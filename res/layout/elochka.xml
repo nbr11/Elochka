@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <TableLayout android:id="@+id/TableLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
-        <Button android:text="Select decoration" android:id="@+id/button1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="true" android:onClick="startActivity2" ></Button>
-   <com.dnima.elochka.ElkaView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:src="@drawable/elka" android:id="@+id/elka"
-	android:layout_height="wrap_content" android:layout_width="wrap_content"
-	android:layout_gravity="center" android:background="@drawable/elka">
-    
-    	
-</com.dnima.elochka.ElkaView>
+<TableLayout android:clipChildren="true"
+	android:fitsSystemWindows="true" android:id="@+id/TableLayout1"
+	android:layout_width="wrap_content" android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<TableRow android:layout_width="wrap_content"
+		android:fitsSystemWindows="true" android:baselineAligned="false">
+		<Button android:id="@+id/button1"
+			android:clickable="true" android:onClick="startActivity2"
+			android:layout_width="match_parent" android:layout_height="match_parent"
+			android:layout_weight="3" android:text="@string/seldec"/>
 
 
-    </TableLayout>
+	</TableRow>
+	<TableRow>
+		<com.dnima.elochka.ElkaView
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:src="@drawable/elka" android:id="@+id/elka"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_gravity="center" android:background="@drawable/elka" />
+
+
+
+	</TableRow>
+
+</TableLayout>
 	

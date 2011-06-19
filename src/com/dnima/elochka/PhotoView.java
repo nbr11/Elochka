@@ -7,7 +7,6 @@ import android.view.KeyEvent;
 import android.view.KeyEvent.Callback;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.MediaController;
 
 public class PhotoView extends View implements Callback{
 public PhotoView(Context context) {
@@ -28,8 +27,7 @@ public PhotoView(Context context) {
 	}
 	public boolean onTouchEvent(MotionEvent event) {
 		
-        Collage thiscollage=(Collage) this.getContext();
-  
+     
 		invalidate();
 		return true;
 	}

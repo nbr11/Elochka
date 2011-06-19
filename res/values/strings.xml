@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, collage!</string>
-    <string name="app_name">com.dnima.elochka</string>
+    <string name="app_name">Elochka</string>
+    <string name="seldec">Select a decoration</string>
+    <string name="selcommit">commit your selection</string>
 </resources>
