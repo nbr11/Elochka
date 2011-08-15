@@ -1,13 +1,19 @@
 package com.dnima.elochka;
 
 
+import java.io.FileNotFoundException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 
@@ -23,8 +29,7 @@ public class Collage extends Activity {
 	 activity objects 
 	 **/
 	 
-
-	public ElkaView elka;
+    public ElkaView elka;
     public PhotoView photo;
     public LinearLayout lay;
     public Button selectButton;
@@ -42,11 +47,55 @@ public class Collage extends Activity {
         
         
     }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater=getMenuInflater();
+		inflater.inflate(R.menu.save_menu,menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId() ) {
+		case R.id.help:
+		    showHelp();
+			return true;
+		case R.id.save:
+		    try {
+				doSave();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	public void showHelp() {
+	  try {
+		try {
+			Toast.makeText(this, "Use  two finger click or choose another one to fix decoration.\n Use save or long key press to save result as an image. Saved image will be in your SD card in a file Android/com.dnmia.elochka/files/elka.jpg"	  , Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	}
+	
+	public void doSave() throws FileNotFoundException {
+      elka.saveToFile("elka");
+	}
 	public void attachDecoration(View who) {
 		elka.dropDecoration();
 	}
 	public void startActivity2(View who) {
 		// start decoration selection screen
+		  attachDecoration(who);
 		  Intent intent = new Intent(Intent.ACTION_DEFAULT);
 	      intent.setClassName(this, com.dnima.elochka.ChooseAction.class.getName());
 	        

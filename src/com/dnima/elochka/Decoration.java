@@ -1,33 +1,38 @@
 package com.dnima.elochka;
 
+import android.graphics.drawable.BitmapDrawable;
+import android.view.MotionEvent;
+
 
 // we hold here already drawn tree decorations
 public class Decoration {
-	public float x,y,ex,ey,dx,dy;
-	public int  index;
+	public float x,y,width,height;
+	
+	BitmapDrawable f;
 
 	// faces are a field of ElkaView
-	public Decoration(int indexInFaces,ElkaView ev, float startX, float startY){
-		x=startX;
-		y=startY;
-		dx=ev.faces.get(indexInFaces).getMinimumWidth();
-
-		
-		dy=ev.faces.get(indexInFaces).getMinimumHeight();
-		ex= startX+dx;
-		ey= startY+dy;
-		assert(dx>0);
-		assert(dy>0);
-		index=indexInFaces;
+	public Decoration(BitmapDrawable face){
+	
+		f=face;
+		x=(float) 50.0;
+		y=(float) 50.0;
+		width=face.getBounds().width();
+		height=face.getBounds().height();
 	}
-    public void setXY(int newX, int newY) {
-    	
-    	x=newX;
-    	y=newY;
-        ex=x+dx;
-        ey=y+dy;
-    	return;
-    }
+
+	public boolean liesIn(MotionEvent event) {
+		//check if event hits this decoration
+		
+		float ey=event.getY();
+		float ex=event.getX();
+		if(ex < x) return false;
+		if(ey < y) return false;
+		if(ex > x+width) return false;
+		if(ey > y+height) return false;
+		return true;
+ 	
+	}
+   
     
     
  }

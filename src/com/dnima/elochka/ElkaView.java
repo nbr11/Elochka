@@ -3,47 +3,64 @@
  */
 package com.dnima.elochka;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.lang.reflect.Field;
+
 
 import java.util.ArrayList;
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
+
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Environment;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.*;
 import android.view.KeyEvent.Callback;
 import android.view.View.OnLongClickListener;
+import android.view.View.OnClickListener;
 
 /**
- * @author ggrushina
+ * @author Denis Medvedev
  * 
  */
-public class ElkaView extends View implements Callback,OnLongClickListener {
+public class ElkaView extends View implements Callback {
 
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see android.view.KeyEvent.Callback#onKeyDown(int, android.view.KeyEvent)
 	 */
 
+	private static final String TAG = "ElkaView";
 	private Canvas c;
 	private Paint p;
 	private MotionEvent eventTouch = null;
+	private MotionEvent onChangeUpEvent  = null;
 
 	public BitmapDrawable face = null;
 	private int selectedFaceIndex;
 	private MotionEvent selectedFacePlace = null;
 	public ArrayList<BitmapDrawable> faces = new ArrayList<BitmapDrawable>();
 	public ArrayList<Decoration> drawnDecorations = new ArrayList<Decoration>();
-	private String eventSelected;
+	private String toySelected; // getting 0 1 2 etc
+ 	private Context sc;
+	private boolean saveToFileFlag=false;// save not in event  processing, but in onDraw.
+	private Decoration thing;
+
 
 	public ElkaView(Context context, AttributeSet as) {
 
 		super(context, as);
+		sc=context;
 		setFocusableInTouchMode(true);
+	
 		setDrawingCacheEnabled(true);
 		for (Field el : R.drawable.class.getFields()) {
 			if (el.getName().contains("sample")) { // names are sample_1 sample_2 etc
@@ -73,6 +90,7 @@ public class ElkaView extends View implements Callback,OnLongClickListener {
 
 	public ElkaView(Context context, AttributeSet as, int defaultStyle) {
 		super(context, as, defaultStyle);
+		sc=context;
 		setFocusableInTouchMode(true);// to be able to receive kbd events
 		setDrawingCacheEnabled(true);// to be able to save canvas to file
 		for (Field el : R.drawable.class.getFields()) {
@@ -95,66 +113,113 @@ public class ElkaView extends View implements Callback,OnLongClickListener {
 		p = new Paint();
 
 	}
-
+	
 	public Bitmap getImage() {
+	//return results as image
 		return getDrawingCache(true);
 
 	}
-
-	public void onDraw(Canvas elkaCanvas) {
+   public void saveToFile(String filename) throws FileNotFoundException {
+	   
+	   String resfname=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files/"+filename+".jpg";
+	   String mkdir1=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka";
+	   String mkdir2=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files";
+		    
+	   if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+		 File mkd1=new File(mkdir1);
+		 mkd1.mkdir();
+		 File mkd2=new File(mkdir2);
+		 mkd2.mkdir();
+		 // should fail or succeed, we don't care - exception will be later
+		 // but we should create the dir anyway
+		 FileOutputStream os= new FileOutputStream(resfname);
+	     this.getImage().compress(Bitmap.CompressFormat.valueOf("JPEG"), 80, os);
+	   }
+   }
+	public void onDraw(Canvas elkaCanvas)  {
 		c = elkaCanvas;
 
 		p.setARGB(200, 0, 0, 0);
-       if ((eventTouch != null) && (face != null)) {
-			// c.drawText("Hush Puppies", eventTouch.getX(),eventTouch.getY(),
-			// p);
-				selectedFacePlace = eventTouch; // only if in drawing zone, not
-				c.drawBitmap(face.getBitmap(), eventTouch.getX(),
+       if ((eventTouch != null)
+    		   
+       ) {
+    			c.drawBitmap(thing.f.getBitmap(), eventTouch.getX(),
 						eventTouch.getY(), p);
 					
-												// in drawn drop button zone
-			eventTouch = null;
+			
+			
 		}
-		if (eventSelected != null) {
-			selectedFaceIndex = Integer.parseInt(eventSelected);
-
-			face = faces.get(selectedFaceIndex);
-			eventSelected = null;
-		}
+       
 		for (Decoration d : drawnDecorations) {
-			c.drawBitmap(faces.get(d.index).getBitmap(), (float) d.x,
+			c.drawBitmap(d.f.getBitmap(), (float) d.x,
 					(float) d.y, p);
-
+		  ///  String otltext=String.valueOf(d.y);
+		  ///	c.drawText(otltext, 10,10,
+		  /// p);
+		
 		}
+// we should save to file only after everything is drawn
+		if(saveToFileFlag) {
+			   try {
+				saveToFile("Elochka");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				
+				c.drawText(e.getMessage(), 10,10, p);
+				
+			}
+			   saveToFileFlag=false;
+		   }
 
 	}
-
+    @Override
+    
 	public boolean onTouchEvent(MotionEvent event) {
-
-	    eventTouch = event;
-	    if (eventTouch.getPointerCount()==2) dropDecoration();
-		invalidate();
-
-		return true;
-	}
-    public boolean onClickEvent(MotionEvent event){
-    	
-    	return false;
+        // we need to figure out if this touch is for canvas!
+          if (thing==null) 
+        	  if((thing=getAnyThingHere(event))==null)
+        	      return false;
+          if (event.getY() < 40.0) return false;
+		  if (event.getPointerCount()==2) dropDecoration();
+	              if(event.getAction()==MotionEvent.ACTION_UP) {  
+		 	         thing.x=event.getX();
+	                 thing.y=event.getY();
+	                 
+	              }
+	                 
+	      eventTouch=event;        
+    	  invalidate();
+	    // invalidate will be on onclick
+		   return true;
+    
     }
+	private Decoration getAnyThingHere(MotionEvent event) {
+		// on this event we pick up from DrawnDecoration the decoration under cursor and return it. Else null
+		for(Decoration d: drawnDecorations) {
+			if (d.liesIn(event)) {
+				// we ignore z-index, take the oldest one up.
+				return d;
+			}
+			
+			
+		}
+		return null;
+	}
+
 	public void dropDecoration() {
 		// we drop a toy which is on cursor to drawnDecorations list
-		if (face != null) {
-			Decoration thing = new Decoration(selectedFaceIndex, this,
-					selectedFacePlace.getX(), selectedFacePlace.getY());
+		if (thing != null) {
+			// pre-previous event to mitigate button click
+		
 			drawnDecorations.add(thing);
-			// and clean current face until one selected
-			face = null;
+			
+			thing = null;
 		}
 	}
 
 	public boolean onKeyDown(int arg0, KeyEvent arg1) {
 		// TODO Auto-generated method stub
-
+ 
 		return false;
 	}
 
@@ -165,9 +230,13 @@ public class ElkaView extends View implements Callback,OnLongClickListener {
 	 * android.view.KeyEvent)
 	 */
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-		;
-
-		return true;
+		// do save canvas to file
+		
+		saveToFileFlag=true;
+		// and initiate the saving in redraw 
+		invalidate();
+		
+		return false;
 	}
 
 	/*
@@ -189,13 +258,23 @@ public class ElkaView extends View implements Callback,OnLongClickListener {
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		// drop on any key
 		dropDecoration();
-		return true;
+		return false;
 	}
 
 	public void selectDecoration(String stringExtra) {
 		// takes attribute from selection activity (which is string)
 
-		eventSelected = stringExtra;
+		toySelected = stringExtra;
+
+		if (toySelected != null) {
+			int selectedFaceIndex = Integer.parseInt(toySelected);
+
+			BitmapDrawable face = faces.get(selectedFaceIndex);
+			thing = new Decoration(face);
+			
+		}
+			
+	  
 	
 	}
 
@@ -204,5 +283,6 @@ public class ElkaView extends View implements Callback,OnLongClickListener {
 		dropDecoration();
 		return true;
 	}
+
 
 }

@@ -4,4 +4,6 @@
     <string name="app_name">Elochka</string>
     <string name="seldec">Select a decoration</string>
     <string name="selcommit">commit your selection</string>
+    <string name="help">help</string>
+    <string name="save">save</string>
 </resources>

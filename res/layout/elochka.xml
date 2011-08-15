@@ -1,28 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content" android:orientation="vertical"
+	android:layout_width="wrap_content" android:id="@+id/linearLayout1">
+	<Button android:layout_width="match_parent" android:clickable="true"
+		android:layout_height="match_parent" android:text="@string/seldec" android:onClick="startActivity2"
+		android:id="@+id/button1" />
+	<com.dnima.elochka.ElkaView
+		android:background="@drawable/elka" android:id="@+id/elka"
+		android:layout_height="match_parent" android:layout_width="match_parent" />
+</LinearLayout>
+	
 
-<TableLayout android:clipChildren="true"
-	android:fitsSystemWindows="true" android:id="@+id/TableLayout1"
-	android:layout_width="wrap_content" android:layout_height="fill_parent"
-	xmlns:android="http://schemas.android.com/apk/res/android">
-	<TableRow android:layout_width="wrap_content"
-		android:fitsSystemWindows="true" android:baselineAligned="false">
-		<Button android:id="@+id/button1"
-			android:clickable="true" android:onClick="startActivity2"
-			android:layout_width="match_parent" android:layout_height="match_parent"
-			android:layout_weight="3" android:text="@string/seldec"/>
+		
 
-
-	</TableRow>
-	<TableRow>
-		<com.dnima.elochka.ElkaView
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:src="@drawable/elka" android:id="@+id/elka"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:layout_gravity="center" android:background="@drawable/elka" />
-
-
-
-	</TableRow>
-
-</TableLayout>
 	
