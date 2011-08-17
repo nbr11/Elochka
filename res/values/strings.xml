@@ -6,4 +6,5 @@
     <string name="selcommit">commit your selection</string>
     <string name="help">help</string>
     <string name="save">save</string>
+    <string name="helpcontent">Saved image will be in your SD card in a file Android/com.dnmia.elochka/files/elka.jpg</string>
 </resources>

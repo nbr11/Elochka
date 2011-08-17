@@ -140,23 +140,19 @@ public class ElkaView extends View implements Callback {
 		c = elkaCanvas;
 
 		p.setARGB(200, 0, 0, 0);
-       if ((eventTouch != null)
-    		   
-       ) {
-    			c.drawBitmap(thing.f.getBitmap(), eventTouch.getX(),
-						eventTouch.getY(), p);
-					
+		
 			
-			
-		}
-       
+			if (thing!=null) {
+				c.drawBitmap(thing.f.getBitmap(), thing.x,
+						thing.y, p);
+		           if (thing.isDropMark()) dropDecoration();
+		    }
+		
+		
 		for (Decoration d : drawnDecorations) {
 			c.drawBitmap(d.f.getBitmap(), (float) d.x,
 					(float) d.y, p);
-		  ///  String otltext=String.valueOf(d.y);
-		  ///	c.drawText(otltext, 10,10,
-		  /// p);
-		
+		  
 		}
 // we should save to file only after everything is drawn
 		if(saveToFileFlag) {
@@ -176,21 +172,52 @@ public class ElkaView extends View implements Callback {
     
 	public boolean onTouchEvent(MotionEvent event) {
         // we need to figure out if this touch is for canvas!
-          if (thing==null) 
-        	  if((thing=getAnyThingHere(event))==null)
-        	      return false;
-          if (event.getY() < 40.0) return false;
-		  if (event.getPointerCount()==2) dropDecoration();
-	              if(event.getAction()==MotionEvent.ACTION_UP) {  
-		 	         thing.x=event.getX();
-	                 thing.y=event.getY();
-	                 
-	              }
-	                 
-	      eventTouch=event;        
-    	  invalidate();
-	    // invalidate will be on onclick
-		   return true;
+    	  switch (event.getAction()) {
+    	    
+    	  case MotionEvent.ACTION_MOVE:	 
+             if (event.getY() < 40.0) return false;
+             if (thing != null) {
+               
+		       thing.updCoords(event);
+		       invalidate();
+             } else {
+            	   
+          	         thing=getAnyThingHere(event);
+              	       if(thing==null)
+              	         return false;
+          		       
+              	
+             }
+		     return true;
+    	  case MotionEvent.ACTION_UP:
+			 if (thing !=null) {
+				 thing.updCoords(event);
+			   thing.setDropMark(true);
+			   invalidate();
+			   return true;
+			 }
+    	  case MotionEvent.ACTION_DOWN:
+    		  if (thing != null) {
+                  thing.updCoords(event);
+   		        
+   		          invalidate();
+   		          return true;
+                } else {
+               	   
+             	         thing=getAnyThingHere(event);
+                 	       if(thing==null)
+                 	         return false;
+             		     
+             		      invalidate();
+             		      return true;
+                 	
+                }
+			 
+	      default:
+	    	
+		      invalidate();
+	    	  return false;
+    	  }
     
     }
 	private Decoration getAnyThingHere(MotionEvent event) {
@@ -198,6 +225,7 @@ public class ElkaView extends View implements Callback {
 		for(Decoration d: drawnDecorations) {
 			if (d.liesIn(event)) {
 				// we ignore z-index, take the oldest one up.
+				drawnDecorations.remove(d);
 				return d;
 			}
 			
@@ -261,17 +289,17 @@ public class ElkaView extends View implements Callback {
 		return false;
 	}
 
-	public void selectDecoration(String stringExtra) {
+	public void selectDecoration(String selectedDecorationString) {
 		// takes attribute from selection activity (which is string)
 
-		toySelected = stringExtra;
+		toySelected = selectedDecorationString;
 
 		if (toySelected != null) {
-			int selectedFaceIndex = Integer.parseInt(toySelected);
+			int selectedFaceIndex = Integer.parseInt(toySelected);//index from 0
 
 			BitmapDrawable face = faces.get(selectedFaceIndex);
 			thing = new Decoration(face);
-			
+			toySelected=null;
 		}
 			
 	  

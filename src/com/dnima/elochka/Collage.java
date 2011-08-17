@@ -76,7 +76,7 @@ public class Collage extends Activity {
 	public void showHelp() {
 	  try {
 		try {
-			Toast.makeText(this, "Use  two finger click or choose another one to fix decoration.\n Use save or long key press to save result as an image. Saved image will be in your SD card in a file Android/com.dnmia.elochka/files/elka.jpg"	  , Toast.LENGTH_LONG).show();
+			Toast.makeText(this,getResources().getText(R.string.helpcontent) 	  , Toast.LENGTH_LONG).show();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -105,8 +105,8 @@ public class Collage extends Activity {
 	
 	protected void onActivityResult(int requestCode,int resultCode,Intent data) {
 		// went from decoration selection screen
-		
-	    elka.selectDecoration(data.getStringExtra("param_return"));
+		if(data != null)
+	       elka.selectDecoration(data.getStringExtra("param_return"));
 	    
 	    elka.invalidate();
 	}
