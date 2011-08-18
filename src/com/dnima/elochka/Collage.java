@@ -68,6 +68,8 @@ public class Collage extends Activity {
 				e.printStackTrace();
 			}
 			return true;
+		case R.id.exit:
+	        System.exit(0);
 		default:
 			return super.onOptionsItemSelected(item);
 		}

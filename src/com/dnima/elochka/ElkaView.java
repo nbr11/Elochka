@@ -182,9 +182,9 @@ public class ElkaView extends View implements Callback {
 		       invalidate();
              } else {
             	   
-          	         thing=getAnyThingHere(event);
-              	       if(thing==null)
-              	         return false;
+          	    //     thing=getAnyThingHere(event);
+              	//       if(thing==null)
+              //	         return false;
           		       
               	
              }
@@ -222,23 +222,26 @@ public class ElkaView extends View implements Callback {
     }
 	private Decoration getAnyThingHere(MotionEvent event) {
 		// on this event we pick up from DrawnDecoration the decoration under cursor and return it. Else null
+		Decoration returnable=null;
 		for(Decoration d: drawnDecorations) {
 			if (d.liesIn(event)) {
 				// we ignore z-index, take the oldest one up.
+				returnable=d;
 				drawnDecorations.remove(d);
-				return d;
+				
+				break;
 			}
 			
 			
 		}
-		return null;
+		return returnable;
 	}
 
 	public void dropDecoration() {
 		// we drop a toy which is on cursor to drawnDecorations list
 		if (thing != null) {
 			// pre-previous event to mitigate button click
-		
+		    thing.setDropMark(false);
 			drawnDecorations.add(thing);
 			
 			thing = null;

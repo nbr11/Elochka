@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, collage!</string>
-    <string name="app_name">Elochka</string>
+    <string name="app_name">Elochka </string>
     <string name="seldec">Select a decoration</string>
     <string name="selcommit">commit your selection</string>
     <string name="help">help</string>
-    <string name="save">save</string>
+    <string name="save">save to SD card</string>
+    <string name="exit">exit</string>
     <string name="helpcontent">Saved image will be in your SD card in a file Android/com.dnmia.elochka/files/elka.jpg</string>
 </resources>

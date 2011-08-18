@@ -3,4 +3,5 @@
 	<item android:titleCondensed="help" android:title="@string/help"
 		android:id="@+id/help" />
 	<item android:id="@+id/save" android:title="@string/save" />
+	<item android:id="@+id/exit" android:title="@string/exit" />
 </menu>

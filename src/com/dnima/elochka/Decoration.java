@@ -7,6 +7,8 @@ import android.view.MotionEvent;
 // we hold here already drawn tree decorations
 public class Decoration {
 	public float x,y,width,height,wh,hh;
+	private static final float padx=5;
+	private static final float pady=5;
 	
 	BitmapDrawable f;
     private boolean dropMark;
@@ -28,10 +30,10 @@ public class Decoration {
 		
 		float ey=event.getY();
 		float ex=event.getX();
-		if(ex < x) return false;
-		if(ey < y) return false;
-		if(ex > x+width) return false;
-		if(ey > y+height) return false;
+		if(ex < x-padx) return false;
+		if(ey < y-pady) return false;
+		if(ex > x+width+padx) return false;
+		if(ey > y+height+pady) return false;
 		return true;
  	
 	}
