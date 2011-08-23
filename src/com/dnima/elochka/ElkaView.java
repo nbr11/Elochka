@@ -19,11 +19,8 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Environment;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.*;
 import android.view.KeyEvent.Callback;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnClickListener;
 
 /**
  * @author Denis Medvedev
@@ -38,27 +35,19 @@ public class ElkaView extends View implements Callback {
 	 * @see android.view.KeyEvent.Callback#onKeyDown(int, android.view.KeyEvent)
 	 */
 
-	private static final String TAG = "ElkaView";
 	private Canvas c;
 	private Paint p;
-	private MotionEvent eventTouch = null;
-	private MotionEvent onChangeUpEvent  = null;
-
 	public BitmapDrawable face = null;
-	private int selectedFaceIndex;
-	private MotionEvent selectedFacePlace = null;
 	public ArrayList<BitmapDrawable> faces = new ArrayList<BitmapDrawable>();
 	public ArrayList<Decoration> drawnDecorations = new ArrayList<Decoration>();
 	private String toySelected; // getting 0 1 2 etc
- 	private Context sc;
-	private boolean saveToFileFlag=false;// save not in event  processing, but in onDraw.
+ 	private boolean saveToFileFlag=false;// save not in event  processing, but in onDraw.
 	private Decoration thing;
 
 
 	public ElkaView(Context context, AttributeSet as) {
 
 		super(context, as);
-		sc=context;
 		setFocusableInTouchMode(true);
 	
 		setDrawingCacheEnabled(true);
@@ -90,7 +79,6 @@ public class ElkaView extends View implements Callback {
 
 	public ElkaView(Context context, AttributeSet as, int defaultStyle) {
 		super(context, as, defaultStyle);
-		sc=context;
 		setFocusableInTouchMode(true);// to be able to receive kbd events
 		setDrawingCacheEnabled(true);// to be able to save canvas to file
 		for (Field el : R.drawable.class.getFields()) {
@@ -248,50 +236,13 @@ public class ElkaView extends View implements Callback {
 		}
 	}
 
-	public boolean onKeyDown(int arg0, KeyEvent arg1) {
-		// TODO Auto-generated method stub
- 
-		return false;
-	}
+	
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.view.KeyEvent.Callback#onKeyLongPress(int,
-	 * android.view.KeyEvent)
-	 */
-	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-		// do save canvas to file
-		
-		saveToFileFlag=true;
-		// and initiate the saving in redraw 
-		invalidate();
-		
-		return false;
-	}
+	
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.view.KeyEvent.Callback#onKeyMultiple(int, int,
-	 * android.view.KeyEvent)
-	 */
-	public boolean onKeyMultiple(int keyCode, int count, KeyEvent event) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.view.KeyEvent.Callback#onKeyUp(int, android.view.KeyEvent)
-	 */
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		// drop on any key
-		dropDecoration();
-		return false;
-	}
-
+	
+	
 	public void selectDecoration(String selectedDecorationString) {
 		// takes attribute from selection activity (which is string)
 

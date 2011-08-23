@@ -15,9 +15,16 @@ public class ChooseAction extends Activity {
 	
 	public Gallery g;
 	public long pos;
+	public void addtext( ) {
+	// add text to images decorations
+	}
+	public void addphoto( ) {
+     // add photo to images decorations		
+	}
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-   //      Collage parent=(Collage/)this.getContext();
+   
          setContentView(R.layout.chooser);
          g = (Gallery) findViewById(R.id.gallery1);
          g.setAdapter(new ImageAdapter(this));
@@ -41,9 +48,7 @@ public class ChooseAction extends Activity {
             	 finish();
              }
          });
-         
-       
-
-         
+        
+             
 	 }
 }

@@ -2,6 +2,8 @@
 <resources>
     <string name="hello">Hello World, collage!</string>
     <string name="app_name">Elochka </string>
+    <string name="addphoto">Add photo to decorations</string>
+    <string name="addgreeting">Add your own customized greeting to decorations</string>
     <string name="seldec">Select a decoration</string>
     <string name="selcommit">commit your selection</string>
     <string name="help">help</string>

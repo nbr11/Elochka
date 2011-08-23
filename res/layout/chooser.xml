@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
-        <TableLayout android:id="@+id/tableLayout1" android:layout_alignParentLeft="true" android:layout_width="match_parent" android:layout_height="match_parent">
-            <Button android:id="@+id/button1" android:layout_height="wrap_content" android:layout_width="match_parent" android:text="@string/selcommit"></Button>
-            <Gallery android:layout_width="match_parent" android:id="@+id/gallery1" android:layout_height="wrap_content"></Gallery>
-        </TableLayout>
-    </RelativeLayout>
+<RelativeLayout android:id="@+id/relativeLayout1"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<TableLayout android:id="@+id/tableLayout1"
+		android:layout_alignParentLeft="true" android:layout_width="match_parent"
+		android:layout_height="match_parent" android:weightSum="1">
+		<Button android:id="@+id/button1" android:layout_height="wrap_content"
+			android:layout_width="match_parent" android:text="@string/selcommit" />
+		<Gallery android:layout_width="match_parent" android:id="@+id/gallery1"
+			android:layout_height="wrap_content" />
+		<MediaController android:id="@+id/mediaController1"
+			android:layout_width="wrap_content" android:layout_height="wrap_content" />
+		<Button android:id="@+id/button2" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="@string/addphoto"
+			android:onClick="addphoto" />
+		<EditText android:id="@+id/editText1" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Happy New Year!">
+			<requestFocus />
+		</EditText>
+		<Button android:id="@+id/button3" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="@string/addgreeting"
+			android:onClick="addtext" />
+	</TableLayout>
+</RelativeLayout>
    
