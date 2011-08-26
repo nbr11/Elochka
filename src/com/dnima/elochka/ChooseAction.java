@@ -2,11 +2,13 @@ package com.dnima.elochka;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.Toast;
 
@@ -15,8 +17,11 @@ public class ChooseAction extends Activity {
 	
 	public Gallery g;
 	public long pos;
+	
 	public void addtext( ) {
 	// add text to images decorations
+	  EditText etext=(EditText)findViewById(R.id.editText1);
+	  
 	}
 	public void addphoto( ) {
      // add photo to images decorations		
