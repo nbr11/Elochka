@@ -2,7 +2,10 @@ package com.dnima.elochka;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +24,19 @@ public class ChooseAction extends Activity {
 	public void addtext( ) {
 	// add text to images decorations
 	  EditText etext=(EditText)findViewById(R.id.editText1);
+	  View pseudoView = new View(this);
+	  Paint p=new Paint();
+	  p.setARGB(200, 0, 0, 0);
+	  Canvas canvasForText=new Canvas();
+	  canvasForText.drawText(etext.getText().toString(), (float)5.0, (float)5.0, p);
+	  pseudoView.draw(canvasForText);
+	  Bitmap resBitmap;
+	  
+	  resBitmap=pseudoView.getDrawingCache();
+	  BitmapDrawable resBitmapDrawable=new BitmapDrawable(resBitmap);
+	  
+	  
+	  
 	  
 	}
 	public void addphoto( ) {
