@@ -12,8 +12,8 @@ import android.widget.SpinnerAdapter;
 public class ImageAdapter implements SpinnerAdapter {
 	    int mGalleryItemBackground;
 	    private Context mContext;
-
-	    private Integer[] mImageIds = {
+        private static final int MAXSTATIMG=7; 
+	    public Integer[] mImageIds = {
 	            R.drawable.sample_1,
 	            R.drawable.sample_2,
 	            R.drawable.sample_3,
@@ -53,10 +53,12 @@ public class ImageAdapter implements SpinnerAdapter {
 	
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		// 
 		 ImageView i = new ImageView(mContext);
-
+           if(position<MAXSTATIMG)
 	        i.setImageResource(mImageIds[position]);
+           else
+        	  
 	        i.setLayoutParams(new Gallery.LayoutParams(150, 100));
 	        i.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 	        i.setBackgroundResource(mGalleryItemBackground);

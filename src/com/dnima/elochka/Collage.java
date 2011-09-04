@@ -30,7 +30,7 @@ public class Collage extends Activity {
 	 **/
 	 
     public ElkaView elka;
-    public LinearLayout lay;
+   // public LinearLayout lay;
     public Button selectButton;
    
     @Override

@@ -34,7 +34,7 @@ public class ChooseAction extends Activity {
 	  
 	  resBitmap=pseudoView.getDrawingCache();
 	  BitmapDrawable resBitmapDrawable=new BitmapDrawable(resBitmap);
-	  
+	 
 	  
 	  
 	  
