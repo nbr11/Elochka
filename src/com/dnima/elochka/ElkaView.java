@@ -38,7 +38,7 @@ public class ElkaView extends View implements Callback {
 	private Canvas c;
 	private Paint p;
 	public BitmapDrawable face = null;
-	public ArrayList<BitmapDrawable> faces = new ArrayList<BitmapDrawable>();
+	public DecorationFactory decorationFactory;
 	public ArrayList<Decoration> drawnDecorations = new ArrayList<Decoration>();
 	private String toySelected; // getting 0 1 2 etc
  	private boolean saveToFileFlag=false;// save not in event  processing, but in onDraw.
@@ -49,56 +49,17 @@ public class ElkaView extends View implements Callback {
 
 		super(context, as);
 		setFocusableInTouchMode(true);
-	
 		setDrawingCacheEnabled(true);
-		for (Field el : R.drawable.class.getFields()) {
-			if (el.getName().contains("sample")) { // names are sample_1 sample_2 etc
-				Integer id = 0;
-				try {
-					id = (Integer) el.get(el);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}
-
-				try {
-					faces.add((BitmapDrawable) context.getResources()
-							.getDrawable(id));
-				} catch (NotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-		}
-
 		p = new Paint();
+		decorationFactory=new DecorationFactory(context);
 	}
 
 	public ElkaView(Context context, AttributeSet as, int defaultStyle) {
 		super(context, as, defaultStyle);
 		setFocusableInTouchMode(true);// to be able to receive kbd events
 		setDrawingCacheEnabled(true);// to be able to save canvas to file
-		for (Field el : R.drawable.class.getFields()) {
-			if (el.getName().contains("sample")) {
-				Integer id = 0;
-				try {
-					id = (Integer) el.get(el);
-
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				BitmapDrawable img = ((BitmapDrawable) context.getResources().getDrawable(id));
-				faces.add(img);
-			}
-		}
-		p = new Paint();
+	    p = new Paint();
+		decorationFactory=new DecorationFactory(context);
 
 	}
 	
