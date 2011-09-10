@@ -38,51 +38,28 @@ public class ElkaView extends View implements Callback {
 	private Canvas c;
 	private Paint p;
 	public BitmapDrawable face = null;
-	public ArrayList<BitmapDrawable> faces = new ArrayList<BitmapDrawable>();
+	public DecorationFactory decorationFactory;
 	public ArrayList<Decoration> drawnDecorations = new ArrayList<Decoration>();
 	private String toySelected; // getting 0 1 2 etc
  	private boolean saveToFileFlag=false;// save not in event  processing, but in onDraw.
 	private Decoration thing;
-    
-    public void CommonConstructor(Context context, AttributeSet as) {
-    	 setFocusableInTouchMode(true);
-    		
- 		setDrawingCacheEnabled(true);
- 		for (Fieldel : R.drawable.class.getFields()) {
- 			if (el.getName().contains("sample")) { // names are sample_1 sample_2 etc
- 				Integer id = 0;
- 				try {
- 					id = (Integer) el.get(el);
- 				} catch (IllegalArgumentException e) {
- 					e.printStackTrace();
- 				} catch (IllegalAccessException e) {
- 					e.printStackTrace();
- 				}
 
- 				try {
- 					faces.add((BitmapDrawable) context.getResources()
- 							.getDrawable(id));
- 				} catch (NotFoundException e) {
- 					// TODO Auto-generated catch block
- 					e.printStackTrace();
- 				}
 
- 			}
-
- 		}
-
- 		p = new Paint();
-    }
 	public ElkaView(Context context, AttributeSet as) {
 
 		super(context, as);
-		CommonConstructor(context,  as);
+		setFocusableInTouchMode(true);
+		setDrawingCacheEnabled(true);
+		p = new Paint();
+		decorationFactory=new DecorationFactory(context);
 	}
 
 	public ElkaView(Context context, AttributeSet as, int defaultStyle) {
 		super(context, as, defaultStyle);
-		CommonConstructor(context,  as);
-		
+		setFocusableInTouchMode(true);// to be able to receive kbd events
+		setDrawingCacheEnabled(true);// to be able to save canvas to file
+	    p = new Paint();
+		decorationFactory=new DecorationFactory(context);
 
 	}
 	
