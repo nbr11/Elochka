@@ -6,12 +6,8 @@ package com.dnima.elochka;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.lang.reflect.Field;
-
-
 import java.util.ArrayList;
 import android.content.Context;
-import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 
 import android.graphics.Canvas;
@@ -212,8 +208,8 @@ public class ElkaView extends View implements Callback {
 		if (toySelected != null) {
 			int selectedFaceIndex = Integer.parseInt(toySelected);//index from 0
 
-			BitmapDrawable face = faces.get(selectedFaceIndex);
-			thing = new Decoration(face);
+			thing= decorationFactory.deco.get(selectedFaceIndex);
+		
 			toySelected=null;
 		}
 			

@@ -14,12 +14,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 public class ChooseAction extends Activity {
     
 	
 	public Gallery g;
 	public long pos;
+	
+	public DecorationFactory decorationFactory;
 	
 	public void addtext( ) {
 	// add text to images decorations
@@ -34,9 +37,8 @@ public class ChooseAction extends Activity {
 	  
 	  resBitmap=pseudoView.getDrawingCache();
 	  BitmapDrawable resBitmapDrawable=new BitmapDrawable(resBitmap);
-	 
-	  
-	  
+	  decorationFactory.deco.add(new Decoration(resBitmapDrawable));
+	   
 	  
 	}
 	public void addphoto( ) {

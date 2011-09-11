@@ -26,9 +26,9 @@ public class ImageAdapter implements SpinnerAdapter {
 	public ImageAdapter(ChooseAction chooseAction) {
 		// TODO Auto-generated constructor stub
 		mContext = chooseAction;
-        TypedArray a = mContext.obtainStyledAttributes(R.styleable.HelloGallery);
+        TypedArray a = mContext.obtainStyledAttributes(R.styleable.DecoGallery);
         mGalleryItemBackground = a.getResourceId(
-                R.styleable.HelloGallery_android_galleryItemBackground, 0);
+                R.styleable.DecoGallery_android_galleryItemBackground, 0);
         a.recycle();
 
 	}
@@ -55,10 +55,10 @@ public class ImageAdapter implements SpinnerAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// 
 		 ImageView i = new ImageView(mContext);
-           if(position<MAXSTATIMG)
-	        i.setImageResource(mImageIds[position]);
-           else
-        	  
+		 i.setImageDrawable(
+				 
+				 ((ChooseAction)mContext).decorationFactory.deco.get(position).f);
+           
 	        i.setLayoutParams(new Gallery.LayoutParams(150, 100));
 	        i.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 	        i.setBackgroundResource(mGalleryItemBackground);
