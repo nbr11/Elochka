@@ -217,11 +217,6 @@ public class ElkaView extends View implements Callback {
 	
 	}
 
-	public boolean onLongClick(View arg0) {
-		// TODO Auto-generated method stub
-		dropDecoration();
-		return true;
-	}
 
 
 }
