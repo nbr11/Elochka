@@ -56,24 +56,24 @@ public final class R {
         public static final int seldec=0x7f040004;
     }
     public static final class styleable {
-        /** Attributes that can be used with a HelloGallery.
+        /** Attributes that can be used with a DecoGallery.
            <p>Includes the following attributes:</p>
            <table>
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #HelloGallery_android_galleryItemBackground com.dnima.elochka:android_galleryItemBackground}</code></td><td></td></tr>
+           <tr><td><code>{@link #DecoGallery_android_galleryItemBackground com.dnima.elochka:android_galleryItemBackground}</code></td><td></td></tr>
            </table>
-           @see #HelloGallery_android_galleryItemBackground
+           @see #DecoGallery_android_galleryItemBackground
          */
-        public static final int[] HelloGallery = {
+        public static final int[] DecoGallery = {
             0x0101004c
         };
         /**
           <p>This symbol is the offset where the {@link com.dnima.elochka.R.attr#android_galleryItemBackground}
-          attribute's value can be found in the {@link #HelloGallery} array.
+          attribute's value can be found in the {@link #DecoGallery} array.
           @attr name android:android_galleryItemBackground
         */
-        public static final int HelloGallery_android_galleryItemBackground = 0;
+        public static final int DecoGallery_android_galleryItemBackground = 0;
     };
 }
