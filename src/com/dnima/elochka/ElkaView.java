@@ -6,12 +6,8 @@ package com.dnima.elochka;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.lang.reflect.Field;
-
-
 import java.util.ArrayList;
 import android.content.Context;
-import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 
 import android.graphics.Canvas;
@@ -38,7 +34,7 @@ public class ElkaView extends View implements Callback {
 	private Canvas c;
 	private Paint p;
 	public BitmapDrawable face = null;
-	public ArrayList<BitmapDrawable> faces = new ArrayList<BitmapDrawable>();
+	public DecorationFactory decorationFactory;
 	public ArrayList<Decoration> drawnDecorations = new ArrayList<Decoration>();
 	private String toySelected; // getting 0 1 2 etc
  	private boolean saveToFileFlag=false;// save not in event  processing, but in onDraw.
@@ -76,12 +72,18 @@ public class ElkaView extends View implements Callback {
 	public ElkaView(Context context, AttributeSet as) {
 
 		super(context, as);
-		CommonConstructor(context,  as);
+		setFocusableInTouchMode(true);
+		setDrawingCacheEnabled(true);
+		p = new Paint();
+		decorationFactory=new DecorationFactory(context);
 	}
 
 	public ElkaView(Context context, AttributeSet as, int defaultStyle) {
 		super(context, as, defaultStyle);
-		CommonConstructor(context,  as);
+		setFocusableInTouchMode(true);
+		setDrawingCacheEnabled(true);
+		p = new Paint();
+		decorationFactory=new DecorationFactory(context);
 		
 
 	}
@@ -235,8 +237,8 @@ public class ElkaView extends View implements Callback {
 		if (toySelected != null) {
 			int selectedFaceIndex = Integer.parseInt(toySelected);//index from 0
 
-			BitmapDrawable face = faces.get(selectedFaceIndex);
-			thing = new Decoration(face);
+			thing= decorationFactory.deco.get(selectedFaceIndex);
+		
 			toySelected=null;
 		}
 			
@@ -244,11 +246,6 @@ public class ElkaView extends View implements Callback {
 	
 	}
 
-	public boolean onLongClick(View arg0) {
-		// TODO Auto-generated method stub
-		dropDecoration();
-		return true;
-	}
 
 
 }

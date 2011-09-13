@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 public class ChooseAction extends Activity {
     
@@ -21,7 +22,8 @@ public class ChooseAction extends Activity {
 	public Gallery g;
 	public long pos;
 	
-	public void addtext( ) {
+	public DecorationFactory decorationFactory;
+	public void addtext(View who ) {
 	// add text to images decorations
 	  EditText etext=(EditText)findViewById(R.id.editText1);
 	  View pseudoView = new View(this);
@@ -34,9 +36,8 @@ public class ChooseAction extends Activity {
 	  
 	  resBitmap=pseudoView.getDrawingCache();
 	  BitmapDrawable resBitmapDrawable=new BitmapDrawable(resBitmap);
-	 
-	  
-	  
+	  decorationFactory.deco.add(new Decoration(resBitmapDrawable));
+	  decorationFactory.StoreToFiles();
 	  
 	}
 	public void addphoto( ) {
@@ -45,7 +46,7 @@ public class ChooseAction extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-   
+        decorationFactory=new DecorationFactory(this);
          setContentView(R.layout.chooser);
          g = (Gallery) findViewById(R.id.gallery1);
          g.setAdapter(new ImageAdapter(this));
