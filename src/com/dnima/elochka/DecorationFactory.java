@@ -2,6 +2,7 @@ package com.dnima.elochka;
 
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,7 +30,10 @@ public class DecorationFactory {
 private void LoadFromFiles(){
 	   // load decorations from files
 	   try {
-		   
+		   File decoStore=new File("decoration.string");
+		   if (!decoStore.exists()) {
+			   decoStore.createNewFile();
+		   }
 		   ObjectInputStream in=new ObjectInputStream(new FileInputStream("decorations.string"));		   
            deco=(ArrayList<Decoration>)in.readObject(); 
 	   } catch (FileNotFoundException e) {
