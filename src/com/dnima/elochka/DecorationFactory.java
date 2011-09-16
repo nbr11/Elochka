@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,23 +16,30 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 
 
 public class DecorationFactory {
    public ArrayList<Decoration> deco=new ArrayList<Decoration>();
    public DecorationFactory(Context mContext) {
-	   LoadFromFiles();
+	   LoadFromFiles(mContext);
 	   AddFromResource(mContext);
-	   StoreToFiles();
+	   StoreToFiles(mContext);
    }
    @SuppressWarnings("unchecked")
-private void LoadFromFiles(){
+private void LoadFromFiles(Context mContext){
 	   // load decorations from files
 	   try {
-		   
-		   ObjectInputStream in=new ObjectInputStream(new FileInputStream("decorations.string"));		   
-           deco=(ArrayList<Decoration>)in.readObject(); 
+		   int i=0;
+		   while (true)  {
+		   FileInputStream ifs=mContext.openFileInput(String.valueOf(i)+"_decoration.string");
+		   ObjectInputStream in=new ObjectInputStream(ifs);	
+		   BitmapDrawable dbm=new BitmapDrawable(null, ifs);
+           deco.add(new Decoration(dbm)); 
+           ifs.close();
+		   } 
 	   } catch (FileNotFoundException e) {
 		// do not care - just create a new one from resource
 		   ;
@@ -40,9 +48,6 @@ private void LoadFromFiles(){
 	    ;
 	} catch (IOException e) {
 		// do not care
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
 	} 
 	   
 	   
@@ -72,12 +77,20 @@ private void LoadFromFiles(){
 		}
    }
    
-   public void StoreToFiles(){
+   public void StoreToFiles(Context mContext){
 	   try {
 		   
-		   ObjectOutputStream out=new ObjectOutputStream(new FileOutputStream("decorations.string"));		   
-           out.writeObject(deco); 
-	   }  
+	       int i=0;
+		   for(Decoration el:deco) {
+			   
+		      
+		       FileOutputStream fos=mContext.openFileOutput(String.valueOf(i)+"_decorations.string",Context.MODE_PRIVATE);
+		       ObjectOutputStream out=new ObjectOutputStream(fos);		   
+               el.f.getBitmap().compress(CompressFormat.JPEG, 100, out); 
+               out.close();
+           
+		   }
+		   }  
 	   catch (Exception e) {
 		   e.printStackTrace();
 	   }

@@ -31,13 +31,14 @@ public class ChooseAction extends Activity {
 	  p.setARGB(200, 0, 0, 0);
 	  Canvas canvasForText=new Canvas();
 	  canvasForText.drawText(etext.getText().toString(), (float)5.0, (float)5.0, p);
+	  pseudoView.setDrawingCacheEnabled(true);
 	  pseudoView.draw(canvasForText);
 	  Bitmap resBitmap;
 	  
 	  resBitmap=pseudoView.getDrawingCache();
 	  BitmapDrawable resBitmapDrawable=new BitmapDrawable(resBitmap);
 	  decorationFactory.deco.add(new Decoration(resBitmapDrawable));
-	  decorationFactory.StoreToFiles();
+	  decorationFactory.StoreToFiles(who.getContext());
 	  
 	}
 	public void addphoto( ) {

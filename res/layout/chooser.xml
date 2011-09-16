@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout android:id="@+id/relativeLayout1"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	xmlns:android="http://schemas.android.com/apk/res/android">
+	android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent">
 	<TableLayout android:id="@+id/tableLayout1"
 		android:layout_alignParentLeft="true" android:layout_width="match_parent"
 		android:layout_height="match_parent" android:weightSum="1">
@@ -9,18 +8,16 @@
 			android:layout_width="match_parent" android:text="@string/selcommit" />
 		<Gallery android:layout_width="match_parent" android:id="@+id/gallery1"
 			android:layout_height="wrap_content" />
-		<MediaController android:id="@+id/mediaController1"
-			android:layout_width="wrap_content" android:layout_height="wrap_content" />
+		<LinearLayout android:id="@+id/linearLayout1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		</LinearLayout>
+		<Button android:id="@+id/button3" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="@string/addgreeting"
+			android:onClick="addtext" android:layout_weight="0,14"/>
 		<Button android:id="@+id/button2" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="@string/addphoto"
 			android:onClick="addphoto" />
-		<EditText android:id="@+id/editText1" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="Happy New Year!">
-			<requestFocus />
-		</EditText>
-		<Button android:id="@+id/button3" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="@string/addgreeting"
-			android:onClick="addtext" />
+		<MediaController android:id="@+id/mediaController1"
+			android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
 	</TableLayout>
 </RelativeLayout>
-   
