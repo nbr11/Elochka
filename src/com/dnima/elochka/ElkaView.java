@@ -6,6 +6,7 @@ package com.dnima.elochka;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -40,35 +41,7 @@ public class ElkaView extends View implements Callback {
  	private boolean saveToFileFlag=false;// save not in event  processing, but in onDraw.
 	private Decoration thing;
     
-    public void CommonConstructor(Context context, AttributeSet as) {
-    	 setFocusableInTouchMode(true);
-    		
- 		setDrawingCacheEnabled(true);
- 		for (Fieldel : R.drawable.class.getFields()) {
- 			if (el.getName().contains("sample")) { // names are sample_1 sample_2 etc
- 				Integer id = 0;
- 				try {
- 					id = (Integer) el.get(el);
- 				} catch (IllegalArgumentException e) {
- 					e.printStackTrace();
- 				} catch (IllegalAccessException e) {
- 					e.printStackTrace();
- 				}
-
- 				try {
- 					faces.add((BitmapDrawable) context.getResources()
- 							.getDrawable(id));
- 				} catch (NotFoundException e) {
- 					// TODO Auto-generated catch block
- 					e.printStackTrace();
- 				}
-
- 			}
-
- 		}
-
- 		p = new Paint();
-    }
+   
 	public ElkaView(Context context, AttributeSet as) {
 
 		super(context, as);

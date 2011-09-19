@@ -1,11 +1,17 @@
 package com.dnima.elochka;
 
+import java.io.Serializable;
+
 import android.graphics.drawable.BitmapDrawable;
 import android.view.MotionEvent;
 
 
 // we hold here already drawn tree decorations
-public class Decoration {
+public class Decoration implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public float x,y,width,height,wh,hh;
 	private static final float padx=5;
 	private static final float pady=5;

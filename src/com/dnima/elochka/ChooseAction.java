@@ -3,45 +3,54 @@ package com.dnima.elochka;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.hardware.Camera;
 import android.os.Bundle;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.Toast;
-import java.util.ArrayList;
 
 public class ChooseAction extends Activity {
     
 	
 	public Gallery g;
 	public long pos;
-	
+	public static Camera cam;
 	public DecorationFactory decorationFactory;
-	public void addtext(View who ) {
-	// add text to images decorations
-	  EditText etext=(EditText)findViewById(R.id.editText1);
-	  View pseudoView = new View(this);
-	  Paint p=new Paint();
-	  p.setARGB(200, 0, 0, 0);
-	  Canvas canvasForText=new Canvas();
-	  canvasForText.drawText(etext.getText().toString(), (float)5.0, (float)5.0, p);
-	  pseudoView.draw(canvasForText);
-	  Bitmap resBitmap;
-	  
-	  resBitmap=pseudoView.getDrawingCache();
-	  BitmapDrawable resBitmapDrawable=new BitmapDrawable(resBitmap);
-	  decorationFactory.deco.add(new Decoration(resBitmapDrawable));
-	  decorationFactory.StoreToFiles();
-	  
+	
+	public void addphoto( View who) {
+     // add photo to images decorations
+		try {
+		cam=Camera.open();
+		Camera.Parameters cp=cam.getParameters();
+	    cp.setPictureSize(80, 80);
+	    //cam.setParameters(cp);
+		SurfaceView sfw;
+		sfw=(SurfaceView) findViewById(R.id.surfaceView1);
+		SurfaceHolder sfh=sfw.getHolder();
+		cam.setPreviewDisplay(sfh);
+		cam.startPreview();
+	
+		}
+		catch (Exception p) {
+		    Toast.makeText(ChooseAction.this, p.getLocalizedMessage(), Toast.LENGTH_SHORT).show();	
+		}
+		finally {
+			
+		}
 	}
-	public void addphoto( ) {
-     // add photo to images decorations		
+	public void takephoto (View who) {
+		
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +62,7 @@ public class ChooseAction extends Activity {
 
          g.setOnItemClickListener(new OnItemClickListener() {
              public void onItemClick(@SuppressWarnings("rawtypes") AdapterView parent, View v, int position, long id) {
-                 Toast.makeText(ChooseAction.this, "" + position, Toast.LENGTH_SHORT).show();
+             
                  pos=id;
              }
          });
