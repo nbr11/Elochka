@@ -2,6 +2,8 @@ package com.dnima.elochka;
 
 import java.io.IOException;
 
+import com.dnima.camera.Preview;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -15,7 +17,7 @@ import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.Toast;
 
-public class ChooseAction extends Activity  implements SurfaceHolder.Callback, View.OnClickListener, Camera.PictureCallback, Camera.PreviewCallback, Camera.AutoFocusCallback{
+public class ChooseAction extends Activity  {
     
 	
 	public Gallery g;
@@ -45,7 +47,9 @@ public class ChooseAction extends Activity  implements SurfaceHolder.Callback, V
 
 	
 	public void takephoto (View who) {
+		Preview p=(Preview)findViewById(R.id.preview);
 		
+		p.switchCamera(cam);
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,16 +59,7 @@ public class ChooseAction extends Activity  implements SurfaceHolder.Callback, V
        
          setContentView(R.layout.chooser);
          cam=Camera.open();
- 		sfw = (SurfaceView) findViewById(R.id.surfaceView1);
- 		sfh = sfw.getHolder();
- 		sfh.addCallback(this);
- 		try {
- 			cam.setPreviewDisplay(sfh);
- 		} catch (IOException e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
- 		cam.startPreview();
+        
          g = (Gallery) findViewById(R.id.gallery1);
          g.setAdapter(new ImageAdapter(this));
          
@@ -106,30 +101,5 @@ public class ChooseAction extends Activity  implements SurfaceHolder.Callback, V
 		// TODO Auto-generated method stub
 		
 	}
-	public void surfaceCreated(SurfaceHolder arg0) {
-		// TODO Auto-generated method stub
-		cam=Camera.open();
-		sfw = (SurfaceView) findViewById(R.id.surfaceView1);
-		sfh = sfw.getHolder();
-		sfh.addCallback(this);
-		try {
-			cam.setPreviewDisplay(sfh);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		cam.startPreview();
-	}
-	public void surfaceDestroyed(SurfaceHolder arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void surfaceChanged(SurfaceHolder holder,int format,int width, int height) {
-		try {
-			cam.setPreviewDisplay(sfh);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
+	
 }
