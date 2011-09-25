@@ -22,16 +22,16 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
     private final String TAG = "Preview";
 
     SurfaceView mSurfaceView;
-    SurfaceHolder mHolder;
+    public SurfaceHolder mHolder;
     Size mPreviewSize;
     List<Size> mSupportedPreviewSizes;
     Camera mCamera;
 
-    Preview(Context context) {
+    public Preview(Context context) {
         super(context);
 
         mSurfaceView = new SurfaceView(context);
-        addView(mSurfaceView);
+        addView(mSurfaceView,new LayoutParams(-1,-1));// match_parent on x and y
 
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
@@ -39,7 +39,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
         mHolder.addCallback(this);
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
-    Preview(Context context,AttributeSet as) {
+    public Preview(Context context,AttributeSet as) {
         super(context,as);
 
         mSurfaceView = new SurfaceView(context);

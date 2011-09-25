@@ -22,44 +22,65 @@ public class ChooseAction extends Activity  {
 	
 	public Gallery g;
 	public long pos;
-	public Camera cam;
+	public static Camera cam;
 	public DecorationFactory decorationFactory;
 	private SurfaceView sfw;
 	private SurfaceHolder sfh;
+	private Preview p;
 
+	public ChooseAction() {
+		 cam=Camera.open();
+		
+		
+
+        
+	}
 	// callbacks for surface holder
 	@Override
 	protected void onResume()
 	{
 		super.onResume();
-		cam=Camera.open();
+//		cam=Camera.open();
 	}
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (cam!=null) {
-			cam.setPreviewCallback(null);
-			cam.stopPreview();
-			cam.release();
-			cam=null;
-		}
+//		if (cam!=null) {
+//			cam.setPreviewCallback(null);
+//			cam.stopPreview();
+//			cam.release();
+//			cam=null;
+//		}
 	}
 
 	
 	public void takephoto (View who) {
-		Preview p=(Preview)findViewById(R.id.preview);
-		
-		p.switchCamera(cam);
+		decorationFactory.StoreToFiles(this);
+		Intent intent = new Intent(Intent.ACTION_DEFAULT);
+	    intent.setClassName(this, com.dnima.camera.TakePhoto.class.getName());
+	    startActivityForResult(intent,1);
+	}
+	public void onActivityResult(int requestCode,int resultCode,Intent data) {
+		// went from decoration photo add
+		decorationFactory=new DecorationFactory(this);
+		setContentView(R.layout.chooser);
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
         decorationFactory=new DecorationFactory(this);
-       
-         setContentView(R.layout.chooser);
-         cam=Camera.open();
+        setContentView(R.layout.chooser);
+        p = (Preview)findViewById(R.id.preview);
+		 p.setCamera(cam);
+		 p.surfaceCreated(p.mHolder);
+		 
+	 		
+	 		
+
         
+       
+ 		
          g = (Gallery) findViewById(R.id.gallery1);
          g.setAdapter(new ImageAdapter(this));
          
@@ -78,7 +99,7 @@ public class ChooseAction extends Activity  {
             	   Intent intent = new Intent();
             	   intent.putExtras(conData);
             	   setResult(RESULT_OK, intent);
-            	   
+            	   cam.release();
             	 finish();
              }
          });
