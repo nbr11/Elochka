@@ -22,38 +22,10 @@ public class ChooseAction extends Activity  {
 	
 	public Gallery g;
 	public long pos;
-	public static Camera cam;
 	public DecorationFactory decorationFactory;
-	private SurfaceView sfw;
-	private SurfaceHolder sfh;
 	private Preview p;
 
-	public ChooseAction() {
-		 cam=Camera.open();
-		
-		
 
-        
-	}
-	// callbacks for surface holder
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-//		cam=Camera.open();
-	}
-	@Override
-	protected void onPause() {
-		super.onPause();
-//		if (cam!=null) {
-//			cam.setPreviewCallback(null);
-//			cam.stopPreview();
-//			cam.release();
-//			cam=null;
-//		}
-	}
-
-	
 	public void takephoto (View who) {
 		decorationFactory.StoreToFiles(this);
 		Intent intent = new Intent(Intent.ACTION_DEFAULT);
@@ -71,9 +43,6 @@ public class ChooseAction extends Activity  {
 		
         decorationFactory=new DecorationFactory(this);
         setContentView(R.layout.chooser);
-        p = (Preview)findViewById(R.id.preview);
-		 p.setCamera(cam);
-		 p.surfaceCreated(p.mHolder);
 		 
 	 		
 	 		
@@ -99,7 +68,6 @@ public class ChooseAction extends Activity  {
             	   Intent intent = new Intent();
             	   intent.putExtras(conData);
             	   setResult(RESULT_OK, intent);
-            	   cam.release();
             	 finish();
              }
          });
