@@ -1,21 +1,18 @@
 package com.dnima.elochka;
 
-import java.io.IOException;
-
-import com.dnima.camera.Preview;
-
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Gallery;
-import android.widget.Toast;
+
+
 
 public class ChooseAction extends Activity  {
     
@@ -24,17 +21,8 @@ public class ChooseAction extends Activity  {
 	public long pos;
 	public static Camera cam;
 	public DecorationFactory decorationFactory;
-	private SurfaceView sfw;
-	private SurfaceHolder sfh;
-	private Preview p;
-
-	public ChooseAction() {
-		 cam=Camera.open();
-		
-		
-
-        
-	}
+	
+	
 	// callbacks for surface holder
 	@Override
 	protected void onResume()
@@ -57,7 +45,9 @@ public class ChooseAction extends Activity  {
 	public void takephoto (View who) {
 		decorationFactory.StoreToFiles(this);
 		Intent intent = new Intent(Intent.ACTION_DEFAULT);
-	    intent.setClassName(this, com.dnima.camera.TakePhoto.class.getName());
+	
+	 
+	    intent.setClassName(this, com.dnima.elochka.TakePhoto.class.getName());
 	    startActivityForResult(intent,1);
 	}
 	public void onActivityResult(int requestCode,int resultCode,Intent data) {
@@ -71,10 +61,7 @@ public class ChooseAction extends Activity  {
 		
         decorationFactory=new DecorationFactory(this);
         setContentView(R.layout.chooser);
-        p = (Preview)findViewById(R.id.preview);
-		 p.setCamera(cam);
-		 p.surfaceCreated(p.mHolder);
-		 
+   
 	 		
 	 		
 

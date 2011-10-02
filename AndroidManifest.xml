@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name="ChooseAction" android:allowTaskReparenting="false" android:finishOnCloseSystemDialogs="false" android:excludeFromRecents="true" android:screenOrientation="portrait"/>
-                
+        <activity android:name="TakePhoto" />        
                  
 	     
 

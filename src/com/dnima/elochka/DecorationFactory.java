@@ -6,9 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
-
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.lang.reflect.Field;
@@ -16,7 +13,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
-import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 
@@ -28,14 +24,13 @@ public class DecorationFactory {
 	   AddFromResource(mContext);
 	   StoreToFiles(mContext);
    }
-   @SuppressWarnings("unchecked")
+  
 private void LoadFromFiles(Context mContext){
 	   // load decorations from files
 	   try {
 		   int i=0;
 		   while (true)  {
 		   FileInputStream ifs=mContext.openFileInput(String.valueOf(i)+"_decoration.string");
-		   ObjectInputStream in=new ObjectInputStream(ifs);	
 		   BitmapDrawable dbm=new BitmapDrawable(null, ifs);
            deco.add(new Decoration(dbm)); 
            ifs.close();

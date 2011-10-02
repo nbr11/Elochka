@@ -12,7 +12,7 @@ import android.widget.SpinnerAdapter;
 public class ImageAdapter implements SpinnerAdapter {
 	    int mGalleryItemBackground;
 	    private Context mContext;
-        private static final int MAXSTATIMG=7; 
+       
 	    public Integer[] mImageIds = {
 	            R.drawable.sample_1,
 	            R.drawable.sample_2,

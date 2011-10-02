@@ -1,4 +1,4 @@
-package com.dnima.camera;
+package com.dnima.elochka;
 
 import java.io.IOException;
 import java.util.List;
