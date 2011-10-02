@@ -52,8 +52,9 @@ public class ChooseAction extends Activity  {
 	}
 	public void onActivityResult(int requestCode,int resultCode,Intent data) {
 		// went from decoration photo add
-		decorationFactory=new DecorationFactory(this);
-		setContentView(R.layout.chooser);
+		
+		Bundle s1=new Bundle();
+		onCreate(s1);
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class ChooseAction extends Activity  {
             	   Intent intent = new Intent();
             	   intent.putExtras(conData);
             	   setResult(RESULT_OK, intent);
-            	   cam.release();
+            	   
             	 finish();
              }
          });
