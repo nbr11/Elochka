@@ -28,12 +28,13 @@ public class DecorationFactory {
 private void LoadFromFiles(Context mContext){
 	   // load decorations from files
 	   try {
-		   int i=0;
+		   int i=1;
 		   while (true)  {
-		   FileInputStream ifs=mContext.openFileInput(String.valueOf(i)+"_decoration.string");
+		   FileInputStream ifs=mContext.openFileInput(String.valueOf(i)+"_deco.dat");
 		   BitmapDrawable dbm=new BitmapDrawable(null, ifs);
            deco.add(new Decoration(dbm)); 
            ifs.close();
+           i=i+1;
 		   } 
 	   } catch (FileNotFoundException e) {
 		// do not care - just create a new one from resource
@@ -79,7 +80,7 @@ private void LoadFromFiles(Context mContext){
 		   for(Decoration el:deco) {
 			   
 		      
-		       FileOutputStream fos=mContext.openFileOutput(String.valueOf(i)+"_decorations.string",Context.MODE_PRIVATE);
+		       FileOutputStream fos=mContext.openFileOutput(String.valueOf(i)+"_deco.dat",Context.MODE_PRIVATE);
 		       ObjectOutputStream out=new ObjectOutputStream(fos);		   
                el.f.getBitmap().compress(CompressFormat.JPEG, 100, out); 
                out.close();

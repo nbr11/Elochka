@@ -1,10 +1,16 @@
 package com.dnima.elochka;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.provider.MediaStore;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,23 +29,7 @@ public class ChooseAction extends Activity  {
 	public DecorationFactory decorationFactory;
 	
 	
-	// callbacks for surface holder
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-//		cam=Camera.open();
-	}
-	@Override
-	protected void onPause() {
-		super.onPause();
-//		if (cam!=null) {
-//			cam.setPreviewCallback(null);
-//			cam.stopPreview();
-//			cam.release();
-//			cam=null;
-//		}
-	}
+	
 
 	
 	public void takephoto (View who) {
@@ -56,6 +46,18 @@ public class ChooseAction extends Activity  {
 		Bundle s1=new Bundle();
 		onCreate(s1);
 	}
+	public static boolean isIntentAvailable(Context context, String action) {
+	    final PackageManager packageManager = context.getPackageManager();
+	    final Intent intent = new Intent(action);
+	    List<ResolveInfo> list =
+	            packageManager.queryIntentActivities(intent,
+	                    PackageManager.MATCH_DEFAULT_ONLY);
+	    return list.size() > 0;
+	}
+    public boolean isAnyCameras() {
+    	
+    	return isIntentAvailable(this.getApplicationContext(),MediaStore.ACTION_IMAGE_CAPTURE);
+    }
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,9 +65,15 @@ public class ChooseAction extends Activity  {
         decorationFactory=new DecorationFactory(this);
         setContentView(R.layout.chooser);
    
+	 		// getNumberOfCameras is available since api level 9 only!!!
+            // dirty hack, thanks to doc_180
+        
 	 		
-	 		
-
+if  (isAnyCameras()) {
+	 setContentView(R.layout.chooser);
+} else {
+	 setContentView(R.layout.chooser_nocamera);
+}
         
        
  		
@@ -94,21 +102,6 @@ public class ChooseAction extends Activity  {
         
              
 	 }
-	public void onAutoFocus(boolean arg0, Camera arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void onPreviewFrame(byte[] arg0, Camera arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void onPictureTaken(byte[] arg0, Camera arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }

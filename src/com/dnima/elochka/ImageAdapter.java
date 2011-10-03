@@ -12,16 +12,9 @@ import android.widget.SpinnerAdapter;
 public class ImageAdapter implements SpinnerAdapter {
 	    int mGalleryItemBackground;
 	    private Context mContext;
+	    private int our_len;
        
-	    public Integer[] mImageIds = {
-	            R.drawable.sample_1,
-	            R.drawable.sample_2,
-	            R.drawable.sample_3,
-	            R.drawable.sample_4,
-	            R.drawable.sample_5,
-	            R.drawable.sample_6,
-	            R.drawable.sample_7
-	    };
+
 
 	public ImageAdapter(ChooseAction chooseAction) {
 		// TODO Auto-generated constructor stub
@@ -30,12 +23,13 @@ public class ImageAdapter implements SpinnerAdapter {
         mGalleryItemBackground = a.getResourceId(
                 R.styleable.DecoGallery_android_galleryItemBackground, 0);
         a.recycle();
+        our_len=chooseAction.decorationFactory.deco.size();
 
 	}
 
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return mImageIds.length;
+		return our_len;
 	}
 
 	public Object getItem(int position) {

@@ -178,5 +178,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
         mCamera.setParameters(parameters);
         mCamera.startPreview();
     }
+	
 
 }
