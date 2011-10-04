@@ -84,7 +84,7 @@ private void LoadFromFiles(Context mContext){
 		       ObjectOutputStream out=new ObjectOutputStream(fos);		   
                el.f.getBitmap().compress(CompressFormat.JPEG, 100, out); 
                out.close();
-           
+               i=i+1;
 		   }
 		   }  
 	   catch (Exception e) {
