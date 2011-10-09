@@ -4,8 +4,10 @@ package com.dnima.elochka;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
 import android.os.Bundle;
 import android.view.KeyEvent.Callback;
 import android.view.MotionEvent;
@@ -40,6 +42,10 @@ android.view.View.OnTouchListener
 
         // Open the default i.e. the first rear facing camera.
         cam = Camera.open();
+        Parameters comparam=cam.getParameters();
+        comparam.setPictureFormat(PixelFormat.JPEG);
+        comparam.setJpegQuality(100);
+        cam.setParameters(comparam);
         preview.setCamera(cam);
     }
 
@@ -58,7 +64,7 @@ android.view.View.OnTouchListener
     private void takeShot() {
     	if(cam !=null && picture_taking ==false) {
     		picture_taking=true;
-    	    cam.takePicture(null, null, this);
+    	    cam.takePicture(null, null, this);//jpeg callback comes here
     	}
     }
 	public void onPictureTaken(byte[] data, Camera camera) {
