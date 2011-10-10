@@ -103,6 +103,8 @@ public class ChooseAction extends Activity  {
 	    }
 		//Bundle s1=new Bundle();
 		//onCreate(s1);
+	    setContentView(null);
+	    setContentView(R.layout.chooser);
 	}
 	public static boolean isIntentAvailable(Context context, String action) {
 	    final PackageManager packageManager = context.getPackageManager();

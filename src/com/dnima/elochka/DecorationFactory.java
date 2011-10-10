@@ -2,6 +2,7 @@ package com.dnima.elochka;
 
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -50,6 +51,7 @@ private void LoadFromFiles(Context mContext) {
 	   
    }
    private void AddFromResource(Context mContext){
+	   destroyFiles();
 		for (Field el : R.drawable.class.getFields()) {
 			if (el.getName().contains("sample")) { // names are sample_1 sample_2 etc
 				Integer id = 0;
@@ -74,7 +76,17 @@ private void LoadFromFiles(Context mContext) {
 		}
    }
    
-   public void StoreToFiles(Context mContext){
+   private void destroyFiles() {
+	// TODO Auto-generated method stub
+	 File dir=new File(".");
+	 String l[]=dir.list();
+	 for( String el:l) {
+		 File d= new File(el);
+	     d.delete();
+	 }
+   }
+
+public void StoreToFiles(Context mContext){
 	   try {
 		   
 	       int i=0;
