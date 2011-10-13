@@ -46,7 +46,7 @@ public class ChooseAction extends Activity  {
 	
 	public void takephoto (View who) {
 		decorationFactory.StoreToFiles(this);
-		String filename="Captured.jpg";
+		String filename="captured";
 		String resfname=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files/"+filename+".jpg";
 		String mkdir1=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka";
 		String mkdir2=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files";
@@ -83,16 +83,17 @@ public class ChooseAction extends Activity  {
 	    case TAKE_PICTURE:
 	        if (resultCode == Activity.RESULT_OK) {
 	            Uri selectedImage = imageUri;
-	            getContentResolver().notifyChange(selectedImage, null);
+	           getContentResolver().notifyChange(selectedImage, null);
 	           
-	            ContentResolver cr = getContentResolver();
-	            Bitmap bitmap;
+	           ContentResolver cr = getContentResolver();
+	           Bitmap bitmap;
 	            try {
-	                 bitmap = android.provider.MediaStore.Images.Media
-	                 .getBitmap(cr, selectedImage);
+	              bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, selectedImage);
 
-	                 decorationFactory.deco.add(new Decoration(new BitmapDrawable(bitmap)));
+	                decorationFactory.deco.add(new Decoration(new BitmapDrawable(bitmap)));
 	                 decorationFactory.StoreToFiles(this.getApplicationContext());
+	                
+	                 g.invalidate();
 	                
 	            } catch (Exception e) {
 	                Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
@@ -103,8 +104,7 @@ public class ChooseAction extends Activity  {
 	    }
 		//Bundle s1=new Bundle();
 		//onCreate(s1);
-	    setContentView(null);
-	    setContentView(R.layout.chooser);
+	    
 	}
 	public static boolean isIntentAvailable(Context context, String action) {
 	    final PackageManager packageManager = context.getPackageManager();
