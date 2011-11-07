@@ -20,6 +20,7 @@ android.view.View.OnTouchListener
 	private Preview preview;
 	private Camera cam;
 	private boolean picture_taking;
+	private StorageApplication ourapp;
 	public TakePhoto() {
 	 super();
 		
@@ -27,6 +28,7 @@ android.view.View.OnTouchListener
     @Override
     public void onCreate(Bundle savedInstanceState){
     	super.onCreate(savedInstanceState);
+    	ourapp=(StorageApplication)this.getApplication();
     	preview=new Preview(this);
     	Button shutter=new Button(this);
 		shutter.setText("Take Photo");
@@ -69,9 +71,9 @@ android.view.View.OnTouchListener
     }
 	public void onPictureTaken(byte[] data, Camera camera) {
 		
-		DecorationFactory dc=new DecorationFactory(this);
-		dc.deco.add(new Decoration(new BitmapDrawable(BitmapFactory.decodeByteArray(data, 0,data.length ))));
-		dc.StoreToFiles(this);
+	
+		ourapp.df.deco.add(new Decoration(new BitmapDrawable(BitmapFactory.decodeByteArray(data, 0,data.length ))));
+		
 		picture_taking=false;
 		Intent intent=new Intent();
 		setResult(RESULT_OK,intent);

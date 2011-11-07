@@ -7,7 +7,7 @@
 <uses-feature android:name="android.hardware.camera" />
 <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <application android:label="@string/app_name" android:icon="@drawable/icon" android:allowBackup="true" android:allowTaskReparenting="false">
+    <application android:label="@string/app_name" android:icon="@drawable/icon" android:allowBackup="true" android:allowTaskReparenting="false" android:name="StorageApplication">
         <activity android:name=".Collage"
                   android:label="@string/app_name" android:screenOrientation="portrait">
             <intent-filter>

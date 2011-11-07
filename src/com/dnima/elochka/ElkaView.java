@@ -34,11 +34,12 @@ public class ElkaView extends View implements Callback {
 	private Canvas c;
 	private Paint p;
 	public BitmapDrawable face = null;
-	public DecorationFactory decorationFactory;
+	//public DecorationFactory decorationFactory;
 	public ArrayList<Decoration> drawnDecorations = new ArrayList<Decoration>();
 	private String toySelected; // getting 0 1 2 etc
  	private boolean saveToFileFlag=false;// save not in event  processing, but in onDraw.
 	private Decoration thing;
+	
     
    
 	public ElkaView(Context context, AttributeSet as) {
@@ -47,7 +48,8 @@ public class ElkaView extends View implements Callback {
 		setFocusableInTouchMode(true);
 		setDrawingCacheEnabled(true);
 		p = new Paint();
-		decorationFactory=new DecorationFactory(context);
+	
+	    ((Collage)context).ourapp.df=new DecorationFactory(this.getContext().getApplicationContext());
 	}
 
 	public ElkaView(Context context, AttributeSet as, int defaultStyle) {
@@ -55,9 +57,9 @@ public class ElkaView extends View implements Callback {
 		setFocusableInTouchMode(true);
 		setDrawingCacheEnabled(true);
 		p = new Paint();
-		decorationFactory=new DecorationFactory(context);
+		//decorationFactory=new DecorationFactory(context);
 		
-
+	    ((Collage)context).ourapp.df=new DecorationFactory(this.getContext().getApplicationContext());
 	}
 	
 	public Bitmap getImage() {
@@ -208,8 +210,8 @@ public class ElkaView extends View implements Callback {
 
 		if (toySelected != null) {
 			int selectedFaceIndex = Integer.parseInt(toySelected);//index from 0
-
-			thing= decorationFactory.deco.get(selectedFaceIndex);
+			
+			thing= ((Collage)(this.getContext())).ourapp.df.deco.get(selectedFaceIndex);
 		
 			toySelected=null;
 		}

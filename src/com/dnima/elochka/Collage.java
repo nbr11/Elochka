@@ -32,10 +32,12 @@ public class Collage extends Activity {
     public ElkaView elka;
    // public LinearLayout lay;
     public Button selectButton;
+    public StorageApplication ourapp;
    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ourapp=(StorageApplication)this.getApplication();
         setContentView(R.layout.elochka);
         elka=(ElkaView)this.findViewById(R.id.elka);
         

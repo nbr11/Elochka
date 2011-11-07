@@ -13,6 +13,7 @@ public class ImageAdapter implements SpinnerAdapter {
 	    int mGalleryItemBackground;
 	    private Context mContext;
 	    private int our_len;
+		private StorageApplication ourapp;
        
 
 
@@ -23,7 +24,9 @@ public class ImageAdapter implements SpinnerAdapter {
         mGalleryItemBackground = a.getResourceId(
                 R.styleable.DecoGallery_android_galleryItemBackground, 0);
         a.recycle();
-        our_len=chooseAction.decorationFactory.deco.size();
+     	 ourapp=(StorageApplication)mContext.getApplicationContext();
+ 	        
+        our_len=ourapp.df.deco.size();
 
 	}
 
@@ -51,7 +54,7 @@ public class ImageAdapter implements SpinnerAdapter {
 		 ImageView i = new ImageView(mContext);
 		 i.setImageDrawable(
 				 
-				 ((ChooseAction)mContext).decorationFactory.deco.get(position).f);
+				 ourapp.df.deco.get(position).f);
            
 	        i.setLayoutParams(new Gallery.LayoutParams(150, 100));
 	        i.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
