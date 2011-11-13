@@ -31,12 +31,12 @@ public class ChooseAction extends Activity {
 	public long pos;
 	public static Camera cam;
 	
-	private Uri imageUri;
+//	private Uri imageUri;
 	private StorageApplication ourapp;
 	private ImageAdapter imAdapter;
 
 	public void takephoto(View who) {
-
+/*
 		String filename = "captured";
 		String resfname = Environment.getExternalStorageDirectory()
 				+ "/Android/data/com.dnima.elochka/files/" + filename + ".jpg";
@@ -59,7 +59,7 @@ public class ChooseAction extends Activity {
 					Toast.LENGTH_SHORT).show();
 			return; // just do not do anything - no card here
 		}
-
+*/
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 	//	File photo = new File(resfname);
 // we don't need large image so it's not needed		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
