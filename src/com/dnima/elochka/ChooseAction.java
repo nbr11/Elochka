@@ -33,6 +33,7 @@ public class ChooseAction extends Activity {
 	
 	private Uri imageUri;
 	private StorageApplication ourapp;
+	private ImageAdapter imAdapter;
 
 	public void takephoto(View who) {
 
@@ -60,9 +61,9 @@ public class ChooseAction extends Activity {
 		}
 
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		File photo = new File(resfname);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-		imageUri = Uri.fromFile(photo);
+	//	File photo = new File(resfname);
+// we don't need large image so it's not needed		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+	//	imageUri = Uri.fromFile(photo);
 		startActivityForResult(intent, TAKE_PICTURE);
 
 	}
@@ -73,19 +74,19 @@ public class ChooseAction extends Activity {
 		switch (requestCode) {
 		case TAKE_PICTURE:
 			if (resultCode == Activity.RESULT_OK) {
-				Uri selectedImage = imageUri;
-				getContentResolver().notifyChange(selectedImage, null);
+			//	Uri selectedImage = imageUri;
+			//	getContentResolver().notifyChange(selectedImage, null);
 
-				ContentResolver cr = getContentResolver();
+			//	ContentResolver cr = getContentResolver();
 				Bitmap bitmap;
 				try {
-					bitmap = android.provider.MediaStore.Images.Media
-							.getBitmap(cr, selectedImage);
-
+			//		bitmap = android.provider.MediaStore.Images.Media
+			//				.getBitmap(cr, selectedImage);
+                    bitmap=(Bitmap)data.getExtras().get("data");
 					ourapp.df.deco.add(new Decoration(
 							new BitmapDrawable(bitmap)));
 					ourapp.df.StoreToFiles(this.getApplicationContext());
-
+					g.setAdapter(imAdapter);
 					g.invalidate();
 
 				} catch (Exception e) {
@@ -131,7 +132,8 @@ public class ChooseAction extends Activity {
 		}
 
 		g = (Gallery) findViewById(R.id.gallery1);
-		g.setAdapter(new ImageAdapter(this));
+		imAdapter=new ImageAdapter(this);
+		g.setAdapter(imAdapter);
 
 		g.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(

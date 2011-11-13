@@ -93,9 +93,9 @@ public void StoreToFiles(Context mContext){
 		   for(Decoration el:deco) {
 			        
 		       FileOutputStream fos=mContext.openFileOutput(String.valueOf(i)+"_deco.jpeg",Context.MODE_PRIVATE);
-		       ObjectOutputStream out=new ObjectOutputStream(fos);		   
-               el.f.getBitmap().compress(CompressFormat.JPEG, 100, out); 
-               out.close();
+		       		   
+               el.f.getBitmap().compress(CompressFormat.JPEG, 100, fos); 
+               fos.close();
                i=i+1;
 		   }
 		   }  
