@@ -1,20 +1,17 @@
 package com.dnima.elochka;
 
-import java.io.File;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +31,7 @@ public class ChooseAction extends Activity {
 //	private Uri imageUri;
 	private StorageApplication ourapp;
 	private ImageAdapter imAdapter;
+	private DataSetObserver observer;
 
 	public void takephoto(View who) {
 /*
@@ -78,16 +76,23 @@ public class ChooseAction extends Activity {
 			//	getContentResolver().notifyChange(selectedImage, null);
 
 			//	ContentResolver cr = getContentResolver();
-				Bitmap bitmap;
+				Bitmap bitmap,smallbitmap;
 				try {
 			//		bitmap = android.provider.MediaStore.Images.Media
 			//				.getBitmap(cr, selectedImage);
                     bitmap=(Bitmap)data.getExtras().get("data");
+                    smallbitmap=Bitmap.createScaledBitmap(bitmap, 50, 50,true);
+                    bitmap.recycle();
+                    bitmap=null;
+                 
+
 					ourapp.df.deco.add(new Decoration(
-							new BitmapDrawable(bitmap)));
+							new BitmapDrawable(smallbitmap)));
 					ourapp.df.StoreToFiles(this.getApplicationContext());
+					
 					g.setAdapter(imAdapter);
-					g.invalidate();
+			       
+					
 
 				} catch (Exception e) {
 					Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
@@ -133,6 +138,8 @@ public class ChooseAction extends Activity {
 
 		g = (Gallery) findViewById(R.id.gallery1);
 		imAdapter=new ImageAdapter(this);
+		
+		imAdapter.registerDataSetObserver(observer);
 		g.setAdapter(imAdapter);
 
 		g.setOnItemClickListener(new OnItemClickListener() {
@@ -160,3 +167,4 @@ public class ChooseAction extends Activity {
 	}
 
 }
+

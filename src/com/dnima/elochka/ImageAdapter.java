@@ -1,5 +1,7 @@
 package com.dnima.elochka;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
@@ -26,13 +28,13 @@ public class ImageAdapter implements SpinnerAdapter {
         a.recycle();
      	 ourapp=(StorageApplication)mContext.getApplicationContext();
  	        
-        our_len=ourapp.df.deco.size();
+        
 
 	}
 
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return our_len;
+		return ourapp.df.deco.size();
 	}
 
 	public Object getItem(int position) {
@@ -84,15 +86,15 @@ public class ImageAdapter implements SpinnerAdapter {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+    private ArrayList<DataSetObserver> observers=new ArrayList<DataSetObserver>();
 	public void registerDataSetObserver(DataSetObserver observer) {
 		// TODO Auto-generated method stub
-		
+		observers.add(observer);
 	}
 
 	public void unregisterDataSetObserver(DataSetObserver observer) {
 		// TODO Auto-generated method stub
-		
+		observers.remove(observer);
 	}
 
 	public View getDropDownView(int arg0, View arg1, ViewGroup arg2) {

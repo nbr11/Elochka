@@ -9,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.os.Bundle;
-import android.view.KeyEvent.Callback;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
