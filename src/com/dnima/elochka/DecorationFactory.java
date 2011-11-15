@@ -2,6 +2,7 @@ package com.dnima.elochka;
 
 
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,7 +26,7 @@ public class DecorationFactory {
    public DecorationFactory(Context mContext) {
 	   LoadFromFiles(mContext);
 	 
-     	   AddFromResource(mContext);
+     	if(deco.size()==0)   AddFromResource(mContext);
 	   
 	   StoreToFiles(mContext);
    }
@@ -35,15 +36,26 @@ private void LoadFromFiles(Context mContext) {
 	try {
 		int i=0;
 		while (true)  {
-			String filename=String.valueOf(i)+"_deco.jpeg";
-			Bitmap tX=BitmapFactory.decodeFile(filename);
-			if (tX==null) throw new StreamCorruptedException("Wrong format");
-			BitmapDrawable dbm=new BitmapDrawable(tX);
-			deco.add(new Decoration(dbm)); 
+			
+		    File bitmap_file=mContext.getFileStreamPath(String.valueOf(i)+"_deco.png");
+
+            // override bug in android: unable to normally parse bitmap files
+            BufferedInputStream is = new BufferedInputStream(new FileInputStream(bitmap_file));
+
+            Bitmap tX=BitmapFactory.decodeStream(is);
+            if (tX==null) throw new StreamCorruptedException("Wrong format");
+            BitmapDrawable dbm=new BitmapDrawable(tX);
+//          tX.recycle();
+            deco.add(new Decoration(dbm));
+            i=i+1;
+
+			
+			
+			
+			
 		
-			i=i+1;
 		} 
-	} catch (StreamCorruptedException e) {
+	} catch (Exception e) {
 		// do not care
 		;
 	} 
@@ -92,9 +104,9 @@ public void StoreToFiles(Context mContext){
 	       int i=0;
 		   for(Decoration el:deco) {
 			        
-		       FileOutputStream fos=mContext.openFileOutput(String.valueOf(i)+"_deco.jpeg",Context.MODE_PRIVATE);
+		       FileOutputStream fos=mContext.openFileOutput(String.valueOf(i)+"_deco.png",Context.MODE_PRIVATE);
 		       		   
-               el.f.getBitmap().compress(CompressFormat.JPEG, 100, fos); 
+               el.f.getBitmap().compress(CompressFormat.PNG, 100, fos); 
                fos.close();
                i=i+1;
 		   }

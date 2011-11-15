@@ -24,13 +24,14 @@ public final class R {
     public static final class id {
         public static final int button1=0x7f060002;
         public static final int button2=0x7f060005;
-        public static final int elka=0x7f060006;
-        public static final int exit=0x7f060009;
+        public static final int drop=0x7f060006;
+        public static final int elka=0x7f060007;
+        public static final int exit=0x7f06000a;
         public static final int gallery1=0x7f060003;
-        public static final int help=0x7f060007;
+        public static final int help=0x7f060008;
         public static final int linearLayout1=0x7f060004;
         public static final int relativeLayout1=0x7f060000;
-        public static final int save=0x7f060008;
+        public static final int save=0x7f060009;
         public static final int tableLayout1=0x7f060001;
     }
     public static final class layout {
@@ -45,6 +46,7 @@ public final class R {
         public static final int addgreeting=0x7f040003;
         public static final int addphoto=0x7f040002;
         public static final int app_name=0x7f040001;
+        public static final int drop=0x7f04000a;
         public static final int exit=0x7f040008;
         public static final int hello=0x7f040000;
         public static final int help=0x7f040006;

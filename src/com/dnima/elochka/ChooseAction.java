@@ -8,8 +8,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.DataSetObserver;
+import android.graphics.AvoidXfermode.Mode;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Xfermode;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ClipDrawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,7 +43,11 @@ public class ChooseAction extends Activity {
 	private StorageApplication ourapp;
 	private ImageAdapter imAdapter;
 	private DataSetObserver observer;
-
+    public void drop (View who) {
+    	// Calling destruction of decoration.
+    	ourapp.df.deco.remove(pos);
+    	ourapp.df.StoreToFiles(getApplicationContext());
+    }
 	public void takephoto(View who) {
 /*
 		String filename = "captured";
@@ -81,7 +96,10 @@ public class ChooseAction extends Activity {
 			//		bitmap = android.provider.MediaStore.Images.Media
 			//				.getBitmap(cr, selectedImage);
                     bitmap=(Bitmap)data.getExtras().get("data");
-                    smallbitmap=Bitmap.createScaledBitmap(bitmap, 50, 50,true);
+            // lets do circle crop here
+                  
+                    
+                    smallbitmap=Bitmap.createScaledBitmap(toyify(new BitmapDrawable(bitmap)), 50, 50,true);
                     bitmap.recycle();
                     bitmap=null;
                  
@@ -104,6 +122,29 @@ public class ChooseAction extends Activity {
 		// Bundle s1=new Bundle();
 		// onCreate(s1);
 
+	}
+
+	private Bitmap toyify(BitmapDrawable bitmapDrawable) {
+		// make border for bitmap
+		Bitmap orig=bitmapDrawable.getBitmap();
+		Bitmap output=Bitmap.createBitmap(orig.getWidth(),orig.getHeight(),Config.ARGB_8888);
+		Canvas canvas=new Canvas(output);
+		final int color=Color.YELLOW;
+		final Paint paint=new Paint();
+		final Rect rect=new Rect(0,0,orig.getWidth(),orig.getHeight());
+		final RectF rectF=new RectF(rect);
+		final float roundPx=40;
+		paint.setAntiAlias(true);
+		canvas.drawARGB(0, 0, 0, 0);
+		paint.setColor(color);
+	    canvas.drawRoundRect(rectF,roundPx,roundPx,paint);
+	    PorterDuff.Mode mode=PorterDuff.Mode.SRC_IN;
+	    PorterDuffXfermode xfermode = new PorterDuffXfermode(mode);
+	    paint.setXfermode(xfermode);
+	    canvas.drawBitmap(orig,rect,rect,paint);
+	    return output;
+	    
+		
 	}
 
 	public static boolean isIntentAvailable(Context context, String action) {

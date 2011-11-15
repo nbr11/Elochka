@@ -14,5 +14,12 @@
 			android:layout_height="wrap_content" android:text="@string/addphoto"
 			android:onClick="takephoto" />
 
+		<Button
+		    android:id="@+id/drop"
+		    android:layout_width="30dp"
+		    android:layout_height="wrap_content"
+		    android:onClick="droptoy"
+		    android:text="@string/drop" />
+
 	</TableLayout>
 </RelativeLayout>
