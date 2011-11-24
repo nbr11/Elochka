@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.dnima.elochka"
-      android:versionCode="1" android:versionName="1.8" android:installLocation="auto">
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-<uses-permission android:name="android.permission.CAMERA" />
-<uses-feature android:name="android.hardware.camera" />
+	package="com.dnima.elochka" android:versionCode="1"
+	android:versionName="1.8" android:installLocation="auto">
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-feature android:name="android.hardware.camera" />
 
-    <application android:label="@string/app_name" android:icon="@drawable/icon" android:allowBackup="true" android:allowTaskReparenting="false" android:name="StorageApplication">
-        <activity android:name=".Collage"
-                  android:label="@string/app_name" android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="ChooseAction" android:allowTaskReparenting="false" android:finishOnCloseSystemDialogs="false" android:excludeFromRecents="true" android:screenOrientation="portrait"/>
-        <activity android:name="TakePhoto" android:allowTaskReparenting="false" android:finishOnCloseSystemDialogs="false" android:excludeFromRecents="true" android:screenOrientation="portrait"/>        
-                 
-	     
+	<application android:label="@string/app_name" android:icon="@drawable/icon"
+		android:allowBackup="true" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+	   android:name="StorageApplication">
 
-    </application>
+		<activity android:name=".Collage" android:label="@string/app_name"
+			android:screenOrientation="portrait">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name="ChooseAction"
+			android:allowTaskReparenting="false"
+			android:finishOnCloseSystemDialogs="false"
+			android:excludeFromRecents="true" android:screenOrientation="portrait" />
+		<activity android:name="TakePhoto"
+			android:allowTaskReparenting="false"
+			android:finishOnCloseSystemDialogs="false"
+			android:excludeFromRecents="true" android:screenOrientation="portrait" />
+
+
+
+	</application>
 </manifest>

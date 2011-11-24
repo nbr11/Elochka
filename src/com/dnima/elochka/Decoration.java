@@ -15,7 +15,7 @@ public class Decoration implements Serializable {
 	public float x,y,width,height,wh,hh;
 	private static final float padx=5;
 	private static final float pady=5;
-	
+	public String filename;
 	BitmapDrawable f;
     private boolean dropMark;
 	// faces are a field of ElkaView
@@ -59,7 +59,7 @@ public class Decoration implements Serializable {
 		x=event.getX() - wh;
 		y=event.getY() - hh;
 	}
-   
+    
     
     
  }

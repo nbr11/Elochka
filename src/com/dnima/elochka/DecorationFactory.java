@@ -23,18 +23,31 @@ import android.graphics.drawable.BitmapDrawable;
 
 public class DecorationFactory {
    public ArrayList<Decoration> deco=new ArrayList<Decoration>();
+   public int size=0;
    public DecorationFactory(Context mContext) {
 	   LoadFromFiles(mContext);
 	 
-     	if(deco.size()==0)   AddFromResource(mContext);
+     	if(deco.size()==0)  {
+     		AddFromResource(mContext);
+     		StoreToFiles(mContext);
+     	}
 	   
-	   StoreToFiles(mContext);
+	 //  StoreToFiles(mContext);
    }
-  
-private void LoadFromFiles(Context mContext) {
+   public void drop(long  pos,Context mContext) {
+	   int p=(int)pos;
+	   String f=deco.get(p).filename;
+	   File filedir=mContext.getFileStreamPath(f);
+	   filedir.delete();
+	   deco.remove(p);
+	   size--;
+	   deco.trimToSize();
+   }
+   private void LoadFromFiles(Context mContext) {
 	// load decorations from files
 	try {
 		int i=0;
+		size=0;
 		while (true)  {
 			
 		    File bitmap_file=mContext.getFileStreamPath(String.valueOf(i)+"_deco.png");
@@ -46,9 +59,12 @@ private void LoadFromFiles(Context mContext) {
             if (tX==null) throw new StreamCorruptedException("Wrong format");
             BitmapDrawable dbm=new BitmapDrawable(tX);
 //          tX.recycle();
-            deco.add(new Decoration(dbm));
+            Decoration newDeco=new Decoration(dbm);
+            newDeco.filename=bitmap_file.getName();
+            deco.add(newDeco);
+            newDeco=null;
             i=i+1;
-
+            size=size+1;
 			
 			
 			
@@ -77,6 +93,7 @@ private void LoadFromFiles(Context mContext) {
 
 				try {
 					Decoration nd = new Decoration((BitmapDrawable) mContext.getResources().getDrawable(id));
+					
                     deco.add(nd);                    
 				} catch (NotFoundException e) {
 					// TODO Auto-generated catch block
@@ -98,12 +115,12 @@ private void LoadFromFiles(Context mContext) {
 	 }
    }
 
-public void StoreToFiles(Context mContext){
+   public void StoreToFiles(Context mContext){
 	   try {
 		   
 	       int i=0;
 		   for(Decoration el:deco) {
-			        
+			   el.filename= String.valueOf(i)+"_deco.png";    
 		       FileOutputStream fos=mContext.openFileOutput(String.valueOf(i)+"_deco.png",Context.MODE_PRIVATE);
 		       		   
                el.f.getBitmap().compress(CompressFormat.PNG, 100, fos); 

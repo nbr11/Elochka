@@ -14,13 +14,13 @@ import android.widget.SpinnerAdapter;
 public class ImageAdapter implements SpinnerAdapter {
 	    int mGalleryItemBackground;
 	    private Context mContext;
-	    private int our_len;
+	   
 		private StorageApplication ourapp;
        
 
 
 	public ImageAdapter(ChooseAction chooseAction) {
-		// TODO Auto-generated constructor stub
+	    
 		mContext = chooseAction;
         TypedArray a = mContext.obtainStyledAttributes(R.styleable.DecoGallery);
         mGalleryItemBackground = a.getResourceId(
@@ -33,18 +33,18 @@ public class ImageAdapter implements SpinnerAdapter {
 	}
 
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return ourapp.df.deco.size();
+		//size of gallery
+		return ourapp.df.size;
 	}
 
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
+	
 		
-		return position;
+		return ourapp.df.deco.get(position).f;
 	}
 
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
+	
 	
 		return position;
 	}
@@ -53,16 +53,16 @@ public class ImageAdapter implements SpinnerAdapter {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// 
-		 ImageView i = new ImageView(mContext);
-		 i.setImageDrawable(
+		 ImageView imView = new ImageView(mContext);
+		 imView.setImageDrawable(
 				 
 				 ourapp.df.deco.get(position).f);
            
-	        i.setLayoutParams(new Gallery.LayoutParams(150, 100));
-	        i.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-	        i.setBackgroundResource(mGalleryItemBackground);
+	        imView.setLayoutParams(new Gallery.LayoutParams(150, 100));
+	        imView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+	        imView.setBackgroundResource(mGalleryItemBackground);
 
-	        return i;
+	        return imView;
 
 
 	}

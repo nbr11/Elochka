@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 
 import android.widget.Button;
 
@@ -37,6 +38,7 @@ public class Collage extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       
         ourapp=(StorageApplication)this.getApplication();
         setContentView(R.layout.elochka);
         elka=(ElkaView)this.findViewById(R.id.elka);

@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -36,17 +37,20 @@ public class ChooseAction extends Activity {
 
 	private static final int TAKE_PICTURE = 0;
 	public Gallery g;
-	public long pos;
+	public long pos=0;
 	public static Camera cam;
 	
 //	private Uri imageUri;
 	private StorageApplication ourapp;
 	private ImageAdapter imAdapter;
 	private DataSetObserver observer;
-    public void drop (View who) {
+    public void droptoy (View who) {
     	// Calling destruction of decoration.
-    	ourapp.df.deco.remove(pos);
+    	ourapp.df.drop(pos,getApplicationContext());
     	ourapp.df.StoreToFiles(getApplicationContext());
+    	
+        g.setSelection(0);
+    	g.invalidate();
     }
 	public void takephoto(View who) {
 /*
@@ -164,6 +168,9 @@ public class ChooseAction extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	     getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+	     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	    
         ourapp=(StorageApplication)this.getApplication();
 	
 		setContentView(R.layout.chooser);
