@@ -39,9 +39,12 @@ public class DecorationFactory {
 	   String f=deco.get(p).filename;
 	   File filedir=mContext.getFileStreamPath(f);
 	   filedir.delete();
+	//   deco.get(p).f.getBitmap().recycle();
 	   deco.remove(p);
-	   size--;
+	   
 	   deco.trimToSize();
+	  
+	   
    }
    private void LoadFromFiles(Context mContext) {
 	// load decorations from files

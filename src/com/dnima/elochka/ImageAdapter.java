@@ -1,4 +1,4 @@
-package com.dnima.elochka;
+package com.dnima.elochka; 
 
 import java.util.ArrayList;
 
@@ -7,12 +7,13 @@ import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.SpinnerAdapter;
 
-public class ImageAdapter implements SpinnerAdapter {
-	    int mGalleryItemBackground;
+public class ImageAdapter extends ArrayAdapter<Decoration> implements SpinnerAdapter {
+	    static int mGalleryItemBackground;
 	    private Context mContext;
 	   
 		private StorageApplication ourapp;
@@ -20,13 +21,13 @@ public class ImageAdapter implements SpinnerAdapter {
 
 
 	public ImageAdapter(ChooseAction chooseAction) {
-	    
+	    super(chooseAction, mGalleryItemBackground);
 		mContext = chooseAction;
         TypedArray a = mContext.obtainStyledAttributes(R.styleable.DecoGallery);
         mGalleryItemBackground = a.getResourceId(
                 R.styleable.DecoGallery_android_galleryItemBackground, 0);
         a.recycle();
-     	 ourapp=(StorageApplication)mContext.getApplicationContext();
+     	ourapp=(StorageApplication)mContext.getApplicationContext();
  	        
         
 
@@ -34,13 +35,11 @@ public class ImageAdapter implements SpinnerAdapter {
 
 	public int getCount() {
 		//size of gallery
-		return ourapp.df.size;
+		return ourapp.df.deco.size();
 	}
 
-	public Object getItem(int position) {
-	
-		
-		return ourapp.df.deco.get(position).f;
+	public Decoration getItem(int position) {
+	    return ourapp.df.deco.get(position);
 	}
 
 	public long getItemId(int position) {
@@ -78,8 +77,8 @@ public class ImageAdapter implements SpinnerAdapter {
 	}
 
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
-		return false;
+
+		return true;
 	}
 
 	public boolean isEmpty() {

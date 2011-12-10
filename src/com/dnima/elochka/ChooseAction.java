@@ -47,8 +47,9 @@ public class ChooseAction extends Activity {
     public void droptoy (View who) {
     	// Calling destruction of decoration.
     	ourapp.df.drop(pos,getApplicationContext());
+
     	ourapp.df.StoreToFiles(getApplicationContext());
-    	
+        imAdapter.notifyDataSetChanged();
         g.setSelection(0);
     	g.invalidate();
     }
@@ -112,8 +113,7 @@ public class ChooseAction extends Activity {
 							new BitmapDrawable(smallbitmap)));
 					ourapp.df.StoreToFiles(this.getApplicationContext());
 					
-					g.setAdapter(imAdapter);
-			       
+					imAdapter.notifyDataSetChanged();
 					
 
 				} catch (Exception e) {
