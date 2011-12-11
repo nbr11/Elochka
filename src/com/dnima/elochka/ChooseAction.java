@@ -45,7 +45,7 @@ public class ChooseAction extends Activity {
 
 	public void droptoy (View who) {
     	// Calling destruction of decoration.
-    	if (ourapp.df.deco.size()<=7) {
+    	if (ourapp.df.deco.size()<7) {
     		Toast t=Toast.makeText(this, "You cannot remove predefinded toys", 10);
     		t.show();
     		return;
@@ -105,7 +105,7 @@ public class ChooseAction extends Activity {
 
 			//	ContentResolver cr = getContentResolver();
 				Bitmap bitmap,smallbitmap;
-				try {
+			//	try {
 			//		bitmap = android.provider.MediaStore.Images.Media
 			//				.getBitmap(cr, selectedImage);
                     bitmap=(Bitmap)data.getExtras().get("data");
@@ -117,18 +117,19 @@ public class ChooseAction extends Activity {
                     bitmap=null;
                  
 
-					ourapp.df.deco.add(new Decoration(
-							new BitmapDrawable(smallbitmap)));
+					ourapp.df.deco.add(new Decoration(new BitmapDrawable(smallbitmap)));
+					ourapp.df.notifyDataSetChanged();
 					ourapp.df.StoreToFiles(this.getApplicationContext());
-					
+					g.invalidate();
 				
 					
 
-				} catch (Exception e) {
+				/*} catch (Exception e) {
 					Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
 							.show();
 					Log.e("Camera", e.toString());
-				}
+					
+				}*/
 			}
 		}
 		// Bundle s1=new Bundle();

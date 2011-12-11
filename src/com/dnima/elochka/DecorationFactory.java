@@ -44,7 +44,7 @@ public class DecorationFactory extends ArrayAdapter<Decoration> implements
 
 		// StoreToFiles(mContext);
 	}
-
+   @Override
 	public void remove(Decoration p) {
 
 		String f = p.filename;
@@ -56,7 +56,8 @@ public class DecorationFactory extends ArrayAdapter<Decoration> implements
 		deco.trimToSize();
 
 	}
-
+    
+    
 	private void LoadFromFiles(Context mContext) {
 		// load decorations from files
 		try {
