@@ -42,7 +42,7 @@ public class ChooseAction extends Activity {
 	
 //	private Uri imageUri;
 	private StorageApplication ourapp;
-	private ImageAdapter imAdapter;
+
 	public void droptoy (View who) {
     	// Calling destruction of decoration.
     	if (ourapp.df.deco.size()<=7) {
@@ -121,7 +121,7 @@ public class ChooseAction extends Activity {
 							new BitmapDrawable(smallbitmap)));
 					ourapp.df.StoreToFiles(this.getApplicationContext());
 					
-					imAdapter.notifyDataSetChanged();
+				
 					
 
 				} catch (Exception e) {
