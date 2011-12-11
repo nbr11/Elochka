@@ -39,7 +39,10 @@ public class ImageAdapter extends ArrayAdapter<Decoration> implements SpinnerAda
 	}
 
 	public Decoration getItem(int position) {
-	    return ourapp.df.deco.get(position);
+		if (position >= ourapp.df.deco.size())
+			return null;
+		else
+			return ourapp.df.deco.get(position);
 	}
 
 	public long getItemId(int position) {

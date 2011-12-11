@@ -43,16 +43,24 @@ public class ChooseAction extends Activity {
 //	private Uri imageUri;
 	private StorageApplication ourapp;
 	private ImageAdapter imAdapter;
-	private DataSetObserver observer;
-    public void droptoy (View who) {
+	public void droptoy (View who) {
     	// Calling destruction of decoration.
-    	ourapp.df.drop(pos,getApplicationContext());
+    	if (ourapp.df.deco.size()<=7) {
+    		Toast t=Toast.makeText(this, "You cannot remove predefinded toys", 10);
+    		t.show();
+    		return;
+    	}
+    	Decoration drop=ourapp.df.deco.get((int)pos);
+    	ourapp.df.remove(drop);
 
     	ourapp.df.StoreToFiles(getApplicationContext());
-        imAdapter.notifyDataSetChanged();
+   
+        
+        ourapp.df.notifyDataSetChanged();
         g.setSelection(0);
     	g.invalidate();
     }
+    
 	public void takephoto(View who) {
 /*
 		String filename = "captured";
@@ -185,10 +193,10 @@ public class ChooseAction extends Activity {
 		}
 
 		g = (Gallery) findViewById(R.id.gallery1);
-		imAdapter=new ImageAdapter(this);
+		//imAdapter=new ImageAdapter(this);
 		
-		imAdapter.registerDataSetObserver(observer);
-		g.setAdapter(imAdapter);
+		//imAdapter.registerDataSetObserver(observer);
+		g.setAdapter(ourapp.df);
 
 		g.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(
