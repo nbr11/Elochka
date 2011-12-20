@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout android:id="@+id/relativeLayout1"
-	android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent">
-	<TableLayout android:id="@+id/tableLayout1"
-		android:layout_alignParentLeft="true" android:layout_width="match_parent"
-		android:layout_height="match_parent" android:weightSum="1">
-		<Button android:id="@+id/button1" android:layout_height="wrap_content"
-			android:layout_width="match_parent" android:text="@string/selcommit" />
-		<Gallery android:layout_width="match_parent" android:id="@+id/gallery1"
-			android:layout_height="wrap_content"/>
-		<LinearLayout android:id="@+id/linearLayout1" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		</LinearLayout>
-			<Button
-		    android:id="@+id/drop"
-		    android:layout_width="30dp"
-		    android:layout_height="wrap_content"
-		    android:onClick="droptoy"
-		    android:text="@string/drop" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent" >
 
-	</TableLayout>
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:weightSum="1" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/selcommit" />
+
+        <Gallery
+            android:id="@+id/gallery1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/drop"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:onClick="droptoy"
+            android:text="@string/drop" />
+    </TableLayout>
+
 </RelativeLayout>

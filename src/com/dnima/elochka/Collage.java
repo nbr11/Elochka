@@ -5,15 +5,14 @@ import java.io.FileNotFoundException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-
 import android.widget.Button;
-
 import android.widget.Toast;
 
 
@@ -60,7 +59,17 @@ public class Collage extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId() ) {
-		case R.id.help:
+	    case R.id.send:
+	    	boolean finishok=false;
+	    	try {
+				elka.saveToFile("to_send");
+				finishok=true;
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    	if(finishok) sendIt("to_send");
+	    case R.id.help:
 		    showHelp();
 			return true;
 		case R.id.save:
@@ -78,6 +87,15 @@ public class Collage extends Activity {
 		}
 	}
 
+	private void sendIt(String what) {
+		// send the file by using an intent
+		Intent intSend=new Intent(Intent.ACTION_SEND);
+		intSend.setData(Uri.parse("file://"+Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files/"+what));
+		intSend.setType("image/jpeg");
+		intSend.putExtra("EXTRA_STREAM", "file://"+Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files/"+what);
+		Intent ch=Intent.createChooser(intSend,"Send to your friend");
+		startActivity(ch);
+	}
 	public void showHelp() {
 	  try {
 		try {
@@ -111,7 +129,12 @@ public class Collage extends Activity {
 	protected void onActivityResult(int requestCode,int resultCode,Intent data) {
 		// went from decoration selection screen
 		if(data != null)
-	       elka.selectDecoration(data.getStringExtra("param_return"));
+			try {
+				elka.selectDecoration(data.getStringExtra("param_return"));
+			} catch (CloneNotSupportedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    
 	    elka.invalidate();
 	}

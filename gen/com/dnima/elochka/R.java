@@ -26,12 +26,13 @@ public final class R {
         public static final int button2=0x7f060005;
         public static final int drop=0x7f060006;
         public static final int elka=0x7f060007;
-        public static final int exit=0x7f06000a;
+        public static final int exit=0x7f06000b;
         public static final int gallery1=0x7f060003;
         public static final int help=0x7f060008;
         public static final int linearLayout1=0x7f060004;
         public static final int relativeLayout1=0x7f060000;
         public static final int save=0x7f060009;
+        public static final int send=0x7f06000a;
         public static final int tableLayout1=0x7f060001;
     }
     public static final class layout {
@@ -54,6 +55,8 @@ public final class R {
         public static final int save=0x7f040007;
         public static final int selcommit=0x7f040005;
         public static final int seldec=0x7f040004;
+        public static final int send=0x7f04000c;
+        public static final int slomato=0x7f04000b;
     }
     public static final class styleable {
         /** Attributes that can be used with a DecoGallery.

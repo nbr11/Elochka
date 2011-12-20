@@ -1,19 +1,17 @@
 package com.dnima.elochka;
 
-import java.io.Serializable;
-
 import android.graphics.drawable.BitmapDrawable;
 import android.view.MotionEvent;
 
 
 // we hold here already drawn tree decorations
-public class Decoration implements Serializable {
+public class Decoration implements Cloneable {
 	/**
-	 * 
+	 *  class to hold drawable object and its methods and vars
 	 */
-	private static final long serialVersionUID = 1L;
+
 	public float x,y,width,height,wh,hh;
-	private static final float padx=5;
+ 	private static final float padx=5;
 	private static final float pady=5;
 	public String filename;
 	BitmapDrawable f;
@@ -30,7 +28,14 @@ public class Decoration implements Serializable {
 		hh=height/2;
 		setDropMark(false);
 	}
-
+	protected Object clone() throws CloneNotSupportedException {
+		
+		return super.clone();
+		
+	}
+	
+    
+	
 	public boolean liesIn(MotionEvent event) {
 		//check if event hits this decoration
 		

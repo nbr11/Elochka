@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="hello">Hello World, collage!</string>
     <string name="app_name">Elochka </string>
     <string name="addphoto">Add photo to decorations</string>
@@ -11,4 +12,7 @@
     <string name="exit">exit</string>
     <string name="helpcontent">Saved image will be in your SD card in a file Android/com.dnmia.elochka/files/elka.jpg</string>
     <string name="drop">Destroy a toy</string>
+    <string name="slomato">Unable to save file to SD card. </string>
+    <string name="send">send</string>
+
 </resources>

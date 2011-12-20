@@ -17,6 +17,7 @@ import android.util.AttributeSet;
 import android.view.KeyEvent.Callback;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * @author Denis Medvedev
@@ -68,21 +69,30 @@ public class ElkaView extends View implements Callback {
 
 	}
    public void saveToFile(String filename) throws FileNotFoundException {
-	   
+	  File mkd1,mkd2;
+	  try { 
 	   String resfname=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files/"+filename+".jpg";
 	   String mkdir1=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka";
 	   String mkdir2=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files";
 		    
 	   if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-		 File mkd1=new File(mkdir1);
+		 mkd1=new File(mkdir1);
 		 mkd1.mkdir();
-		 File mkd2=new File(mkdir2);
+		 mkd2=new File(mkdir2);
 		 mkd2.mkdir();
 		 // should fail or succeed, we don't care - exception will be later
 		 // but we should create the dir anyway
 		 FileOutputStream os= new FileOutputStream(resfname);
+		 // considering ourselves as cacheable view
 	     this.getImage().compress(Bitmap.CompressFormat.valueOf("JPEG"), 80, os);
+	     
+	     os.close();
 	   }
+	  } 
+	  catch (Exception e) {
+		  Toast.makeText(this.getContext(), R.string.slomato+e.getLocalizedMessage(), 30);
+	  }
+	
    }
 	public void onDraw(Canvas elkaCanvas)  {
 		c = elkaCanvas;
@@ -125,42 +135,34 @@ public class ElkaView extends View implements Callback {
     	  case MotionEvent.ACTION_MOVE:	 
              if (event.getY() < 40.0) return false;
              if (thing != null) {
-               
-		       thing.updCoords(event);
+               thing.updCoords(event);
 		       invalidate();
-             } else {
-            	   
-          	    //     thing=getAnyThingHere(event);
-              	//       if(thing==null)
-              //	         return false;
-          		       
-              	
-             }
+             } 
 		     return true;
     	  case MotionEvent.ACTION_UP:
 			 if (thing !=null) {
-				 thing.updCoords(event);
+			   thing.updCoords(event);
 			   thing.setDropMark(true);
 			   invalidate();
 			   return true;
 			 }
     	  case MotionEvent.ACTION_DOWN:
     		  if (thing != null) {
-                  thing.updCoords(event);
-   		        
-   		          invalidate();
-   		          return true;
-                } else {
-               	   
-             	         thing=getAnyThingHere(event);
-                 	       if(thing==null)
-                 	         return false;
-             		     
-             		      invalidate();
-             		      return true;
-                 	
-                }
-			 
+    			  thing.updCoords(event);
+
+    			  invalidate();
+    			  return true;
+    		  } else {
+
+    			  thing=getAnyThingHere(event);
+    			  if(thing==null)
+    				  return false;
+
+    			  invalidate();
+    			  return true;
+
+    		  }
+
 	      default:
 	    	
 		      invalidate();
@@ -203,7 +205,7 @@ public class ElkaView extends View implements Callback {
 
 	
 	
-	public void selectDecoration(String selectedDecorationString) {
+	public void selectDecoration(String selectedDecorationString) throws CloneNotSupportedException {
 		// takes attribute from selection activity (which is string)
 
 		toySelected = selectedDecorationString;
@@ -211,8 +213,8 @@ public class ElkaView extends View implements Callback {
 		if (toySelected != null) {
 			int selectedFaceIndex = Integer.parseInt(toySelected);//index from 0
 			
-			thing= ((Collage)(this.getContext())).ourapp.df.deco.get(selectedFaceIndex);
-		
+			thing= (Decoration)((Collage)(this.getContext())).ourapp.df.deco.get(selectedFaceIndex).clone();
+		    // do deep copy - we need to keep the main decoration silo intact.
 			toySelected=null;
 		}
 			
