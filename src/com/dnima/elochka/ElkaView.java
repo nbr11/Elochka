@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.KeyEvent.Callback;
@@ -63,13 +64,11 @@ public class ElkaView extends View implements Callback {
 	    ((Collage)context).ourapp.df=new DecorationFactory(this.getContext().getApplicationContext());
 	}
 	
-	public Bitmap getImage() {
-	//return results as image
-		return getDrawingCache(true);
-
-	}
-   public void saveToFile(String filename) throws FileNotFoundException {
+	
+   public Uri saveToFile(String filename) throws FileNotFoundException {
 	  File mkd1,mkd2;
+	  Uri up=null;
+
 	  try { 
 	   String resfname=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files/"+filename+".jpg";
 	   String mkdir1=Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka";
@@ -84,14 +83,22 @@ public class ElkaView extends View implements Callback {
 		 // but we should create the dir anyway
 		 FileOutputStream os= new FileOutputStream(resfname);
 		 // considering ourselves as cacheable view
-	     this.getImage().compress(Bitmap.CompressFormat.valueOf("JPEG"), 80, os);
+		 Bitmap bm=this.getDrawingCache();
+		 bm.compress(Bitmap.CompressFormat.valueOf("JPEG"), 80, os);
+		 bm=null;
 	     
 	     os.close();
+	     File fp=new File(resfname);
+	     up=Uri.fromFile(fp);
+	     return up;
+	     
 	   }
 	  } 
 	  catch (Exception e) {
 		  Toast.makeText(this.getContext(), R.string.slomato+e.getLocalizedMessage(), 30);
+		  return (Uri)null;
 	  }
+	return up;
 	
    }
 	public void onDraw(Canvas elkaCanvas)  {

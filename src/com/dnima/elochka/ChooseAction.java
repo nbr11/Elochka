@@ -141,7 +141,7 @@ public class ChooseAction extends Activity {
 		final Paint paint=new Paint();
 		final Rect rect=new Rect(0,0,orig.getWidth(),orig.getHeight());
 		final RectF rectF=new RectF(rect);
-		final float roundPx=40;
+		final float roundPx=60;
 		paint.setAntiAlias(true);
 		canvas.drawARGB(0, 0, 0, 0);
 		paint.setColor(color);

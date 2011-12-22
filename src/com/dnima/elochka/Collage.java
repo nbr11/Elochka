@@ -61,14 +61,16 @@ public class Collage extends Activity {
 	    switch (item.getItemId() ) {
 	    case R.id.send:
 	    	boolean finishok=false;
+	    	Uri resfile = null;
 	    	try {
-				elka.saveToFile("to_send");
+ 				resfile=elka.saveToFile("to_send");
 				finishok=true;
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				;
 			}
-	    	if(finishok) sendIt("to_send");
+	    	if(finishok) sendIt(resfile);
+	    	return true;
 	    case R.id.help:
 		    showHelp();
 			return true;
@@ -87,12 +89,14 @@ public class Collage extends Activity {
 		}
 	}
 
-	private void sendIt(String what) {
+	private void sendIt(Uri fileuri) {
 		// send the file by using an intent
 		Intent intSend=new Intent(Intent.ACTION_SEND);
-		intSend.setData(Uri.parse("file://"+Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files/"+what));
-		intSend.setType("image/jpeg");
-		intSend.putExtra("EXTRA_STREAM", "file://"+Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files/"+what);
+        intSend.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	//	intSend.setData(Uri.parse("file://"+Environment.getExternalStorageDirectory()+"/Android/data/com.dnima.elochka/files/"+what+".jpg"));
+		intSend.setData(fileuri);
+        intSend.setType("image/jpeg");
+		intSend.putExtra(Intent.EXTRA_STREAM,fileuri.toString());
 		Intent ch=Intent.createChooser(intSend,"Send to your friend");
 		startActivity(ch);
 	}
