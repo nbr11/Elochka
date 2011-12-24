@@ -40,7 +40,7 @@ public class ChooseAction extends Activity {
 
 	public void droptoy (View who) {
     	// Calling destruction of decoration.
-    	if (ourapp.df.deco.size()<7) {
+    	if (pos<7) {
     		Toast t=Toast.makeText(this, "You cannot remove predefinded toys", 10);
     		t.show();
     		return;
